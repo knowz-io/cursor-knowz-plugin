@@ -1,0 +1,23 @@
+---
+name: knowz-browse
+description: "Browse Knowz vault contents, topics, and recent items. Use when the user wants to explore what exists in their vaults or understand the shape of stored knowledge."
+---
+
+# /knowz-browse — Browse vaults
+
+Browse Knowz vault contents and topic structure.
+
+## Instructions
+
+0. Resolve brand: read `enterprise.json#/brand` from the project root; default to `Knowz` if the file or field is missing or empty. Use the resolved brand in all user-facing text.
+1. Read `knowz-vaults.md` from the project root if it exists.
+2. Parse any vault name or scope hint from the user's request.
+3. For each target vault:
+   - call `mcp__knowz__list_topics`
+   - call `mcp__knowz__list_vault_contents` with `limit: 20`
+4. Present a compact overview with vault names, topic summaries, and recent items.
+   - If a vault returns 0 topics, label it `(empty)` and skip its topic list.
+   - If more than 5 vaults match the user's hint, show the top 5 by recency and note the remainder count (e.g., `…and 7 more`).
+5. If the user is deciding where to save something, use the browse result to recommend a vault.
+
+If Knowz MCP tools are unavailable, report: "{brand} MCP not connected. In Grok Bot Plugins or Cursor Marketplace, search Knowz → Add → Authorize. Do not paste API keys in chat."

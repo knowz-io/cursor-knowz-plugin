@@ -1,0 +1,30 @@
+{
+  "name": "knowz",
+  "displayName": "Knowz",
+  "version": "0.1.0",
+  "description": "Frictionless knowledge management via the hosted Knowz MCP server — search, save, ask, browse, and amend durable knowledge across vaults.",
+  "author": {
+    "name": "Knowz",
+    "email": "support@knowz.io"
+  },
+  "homepage": "https://knowz.io",
+  "repository": "https://github.com/knowz-io/cursor-knowz-plugin",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "knowz",
+    "knowledge",
+    "vaults",
+    "mcp",
+    "semantic-search",
+    "memory"
+  ],
+  "category": "productivity",
+  "tags": [
+    "knowz",
+    "knowledge",
+    "mcp",
+    "vaults"
+  ],
+  "mcpServers": "./mcp.json"
+}

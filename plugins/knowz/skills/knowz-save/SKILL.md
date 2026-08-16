@@ -1,0 +1,68 @@
+---
+name: knowz-save
+description: "Capture decisions, patterns, conventions, workarounds, and durable learnings to Knowz vaults. Use when the user shares an insight worth keeping or explicitly asks to save knowledge."
+---
+
+# /knowz-save — Capture knowledge
+
+Save a durable insight to the correct Knowz vault.
+
+If `enterprise.json` exists in the project root, use its `brand` value instead of "Knowz" in user-facing text.
+
+## Instructions
+
+1. Read `knowz-vaults.md` from the project root if it exists.
+2. Parse the content the user wants to save.
+3. Perform reads and writes directly from the current agent. Do not assume delegated writer agents.
+4. Classify the capture:
+   - pattern/reusable/utility → Pattern
+   - chose/decided/trade-off → Decision
+   - workaround/limitation/temporary → Workaround
+   - faster/optimized/cache → Performance
+   - security/vulnerability/auth → Security
+   - always/never/standard/convention → Convention
+   - otherwise → Note
+5. Route to the best vault using `When to save` rules.
+   - Multiple strong matches → ask the user to choose.
+   - No match → use the default vault when available.
+6. Expand terse input into a self-contained body:
+   ```
+   [CONTEXT] Where and why this arose
+   [INSIGHT] The reusable knowledge
+   [RATIONALE] Why this approach or decision won
+   [TAGS] category, technology, domain keywords
+   ```
+7. Generate a title in the form `{Category}: {Descriptive summary}`.
+8. Run a dedupe check with `mcp__knowz__search_knowledge` using the title and target vault. If there is a close match, offer the user four choices:
+   - **Create anyway** — new, separate entry
+   - **Skip** — don't save
+   - **Amend existing item** — apply a targeted delta (add a line, fix a phrase, change a tag). Preferred for partial changes.
+   - **Replace existing item** — full rewrite with a complete new body
+9. Resolve one stable `Idempotency Key` before the mutation. Derive it from the chosen operation, resolved target vault, matched `KnowledgeId` or semantic identity when present, normalized title, and a digest of the exact payload. It MUST NOT contain a timestamp, retry count, agent/session ID, or attempt number. Reuse the same key if the response is lost or the operation is retried.
+10. Execute the chosen path:
+   - **Create (default, no dedupe match, or "Create anyway"):** call `mcp__knowz__create_knowledge` with `knowledgeType: "Note"`, the chosen `vaultId`, and tags.
+   - **Amend:** call `mcp__knowz__amend_knowledge` with `id` = the matched item's ID and the delta payload. Send only the change, not a synthesized full body.
+   - **Replace:** call `mcp__knowz__update_knowledge` with `id` = the matched item's ID and the complete new payload.
+   - **Skip:** report that nothing was saved and stop.
+11. If MCP write fails, read `knowz-pending.md` first, then append a capture block using the canonical format only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
+
+    ```markdown
+    ---
+
+    ### {timestamp} -- {title}
+    - **Operation**: create | amend | update
+    - **Idempotency Key**: {stable key resolved before the MCP mutation}
+    - **Queue Status**: pending
+    - **KnowledgeId**: {id}    # required for amend/update, omit for create
+    - **Category**: {category}
+    - **Target Vault**: {vault}
+    - **Source**: knowz-save
+    - **Payload**:
+    {full body for create/update, or the delta for amend}
+
+    ---
+    ```
+
+    Report the queued key and that `/knowz-flush` can replay it. Never downgrade a failed amend/update to create.
+
+If Knowz MCP tools are unavailable, queue as above when the user still wants the capture, and report: "{brand} MCP not connected. In Grok Bot Plugins or Cursor Marketplace, search Knowz → Add → Authorize. Do not paste API keys in chat."

@@ -1,0 +1,72 @@
+---
+description: KnowzCode TDD development methodology
+alwaysApply: true
+---
+
+# KnowzCode Rules
+
+This project uses KnowzCode for structured TDD development. The same rule applies in Grok Bot and Cursor — they share one plugin catalog.
+
+Knowz MCP is optional and never blocks KnowzCode work.
+
+## Required Reading
+Before any feature work, read:
+- `knowzcode/knowzcode_loop.md` — Complete methodology
+- `knowzcode/knowzcode_project.md` — Project context
+- `knowzcode/knowzcode_tracker.md` — Active WorkGroups
+- `knowzcode/knowzcode_architecture.md` — Architecture docs
+
+## Phase Rules
+
+### Phase 1A: Impact Analysis
+- Identify affected components and propose a Change Set
+- NodeIDs are domain concepts (PascalCase), not tasks
+- Check `knowzcode/specs/` before creating new specs
+- PAUSE for user approval before proceeding
+
+### Phase 1B: Specification
+- Use 4-section format: Rules & Decisions, Interfaces, Verification Criteria, Debt & Gaps
+- Minimum: 2+ VERIFY statements per spec
+- PAUSE for user approval, then commit specs
+
+### Phase 2A: Implementation
+- TDD is mandatory: write failing test FIRST, then minimal code, then refactor
+- Use multi-file edits when implementing across components
+- Run full test suite before reporting complete
+- PAUSE after implementation
+
+### Phase 2B: Audit
+- READ-ONLY — do not modify source files
+- Compare implementation vs spec VERIFY statements
+- Report completion percentage and gaps
+- PAUSE for user decision
+
+### Phase 3: Finalization
+- Update specs to As-Built status
+- Update tracker and log
+- Check architecture for drift
+- Final commit
+
+## Enforcement
+- Never skip phases or quality gates
+- TDD is mandatory — no production code without a failing test
+- Every WorkGroup todo starts with `KnowzCode:` prefix
+- Consolidate specs when domains overlap >50%
+- Target <20 specs per project
+- Read `knowzcode/knowzcode_tracker.md` for active work
+- Log completions in `knowzcode/knowzcode_log.md`
+
+## Knowledge Capture
+Every durable candidate — decisions, patterns, gotchas, workarounds — should be classified by the lead with `node knowzcode/context_efficiency_runtime.mjs vault-delta` when that runtime exists.
+`skip` and `batch` perform no MCP or pending-queue write. Persist only the returned `amend`, `update`, or consolidated `flush`, always passing the configured `vaultId` when Knowz tools exist.
+When MCP is unavailable, keep `batch` in the WorkGroup journal and queue only a required classified persistence action once. Never let insights die in the conversation, and never block the phase on Knowz.
+Use `/knowz-save` as an explicit-save candidate when the Knowz plugin is installed; it still passes through the classifier.
+Vault entries are retrieved via semantic search — write detailed, self-contained content. See `knowz-vaults.md` (project root) Content Detail Principle.
+
+## MCP Configuration
+Knowz MCP is optional. Status may be tracked in `knowzcode/mcp_config.md` and vaults in `knowz-vaults.md` (project root).
+Connect via **Grok Bot Plugins** or **Cursor Marketplace**: search **Knowz** → **Add** → **Authorize**.
+Do not paste API keys in chat. secret-request keys do not attach Bearer on Grok Bot.
+Do not run `/knowz register` on an existing Knowz account (that creates a new account).
+Do not use `claude mcp`, Codex `config.toml`, or `/knowz setup <api-key>` as the primary path.
+X-Project-Path is in-tenant routing, not isolation. See the repo `MULTI-ACCOUNT.md` for personal + business tenants.

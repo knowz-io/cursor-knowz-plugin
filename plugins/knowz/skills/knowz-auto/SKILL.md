@@ -1,0 +1,33 @@
+---
+name: knowz-auto
+description: "Lightweight Knowz intent routing for Grok Bot and Cursor. Use when the user's message looks like a knowledge lookup, a save-worthy durable insight, or a targeted edit to an existing vault item."
+---
+
+# Knowz Auto — Lightweight routing
+
+Treat this as a lightweight helper skill. The agent may surface it when a message looks like Knowz query, save, or amend intent, but do not assume guaranteed background auto-execution.
+
+## Instructions
+
+1. Read `knowz-vaults.md` if it exists.
+2. Ignore clear build-only requests such as "fix this bug", "add a test", or "implement this feature".
+3. Classify the message:
+   - **Query intent:** "why did we", "what is our convention", "did we already", "have we done this before"
+   - **Save intent:** "we decided", "I learned", "the workaround is", "save this", "capture this"
+   - **Amend intent:** "update the X entry to...", "fix the typo in the X note", "append Y to the X entry", "change the tag on X", "amend this in the vault", "edit the X in knowz"; the user references an item that **already exists** and describes a **delta**, not a brand-new insight.
+4. If query intent matches a configured vault rule:
+   - run a lightweight direct `mcp__knowz__search_knowledge` or `mcp__knowz__ask_question` call from the current agent
+   - weave successful findings into the response naturally
+5. If save intent matches a configured vault rule:
+   - ask the user whether to save it
+   - if they agree, hand off to the same workflow as `/knowz-save`
+6. If amend intent matches a configured vault rule:
+   - call `mcp__knowz__search_knowledge` scoped to the matched vault (`limit: 5`) to locate the target item
+   - if exactly one clear match → proceed. If multiple plausible matches → present the top 3 with titles/snippets and ask the user which one. If zero matches → say so and offer `/knowz-save` instead.
+   - confirm the change with the user: show the target item title and the proposed delta; never auto-amend
+   - before the mutation, derive a stable `Idempotency Key` from `amend`, the resolved vault, `KnowledgeId`, normalized title, and an exact-delta digest; exclude timestamps, retries, agent/session IDs, and attempt numbers
+   - if the user agrees, call `mcp__knowz__amend_knowledge` with the resolved `id` and the delta payload. Send only the change, not a synthesized full body.
+   - if the MCP call fails transiently, read `knowz-pending.md` and queue the amend once using the canonical fields `Operation`, `Idempotency Key`, `Queue Status`, `KnowledgeId`, `Target Vault`, `Source`, and `Payload`; an identical key/content is already queued, while a key collision fails closed
+7. Never auto-save, never auto-amend, never store workflow handoffs, never block the main task, do not spawn helper reader/writer agents for this path, and do nothing if Knowz tools are unavailable.
+
+Workflow continuity belongs to KnowzCode (`/knowzcode:regroup` and `/knowzcode:continue`). Knowz should only receive durable learnings extracted from the work, such as decisions, patterns, workarounds, conventions, and architecture findings.

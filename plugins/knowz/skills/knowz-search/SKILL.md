@@ -1,0 +1,26 @@
+---
+name: knowz-search
+description: "Search Knowz vaults semantically. Use when the user wants prior art, related work, conventions, examples, or a broad search across stored knowledge. For a synthesized answer use /knowz-ask; for vault structure or recent items use /knowz-browse."
+---
+
+# /knowz-search — Semantic search
+
+Search across Knowz vaults and present the most relevant matches.
+
+If `enterprise.json` exists in the project root, use its `brand` value instead of "Knowz" in user-facing text.
+
+## Instructions
+
+1. Read `knowz-vaults.md` from the project root if it exists.
+2. Parse the search query.
+3. Route to the best vaults using `When to query` rules.
+   - If no routing rules match, search all configured vaults or the default vault.
+4. Search directly from the current agent. When multiple vaults are targeted, issue those `mcp__knowz__search_knowledge` calls in parallel when possible.
+   - `query`: the search query
+   - `vaultId`: the vault ID when known
+   - `limit`: 10
+5. If titles or snippets are too thin, open the top 1-2 promising matches with `mcp__knowz__get_knowledge_item` before summarizing.
+6. Present results grouped by vault with title, short summary, and why they are relevant. Note that vault entries are point-in-time and may be stale — treat them as leads to verify against the live codebase and current docs.
+7. If nothing useful is found, suggest broader search terms, `/knowz-browse`, or `/knowz-ask`.
+
+If Knowz MCP tools are unavailable, report: "{brand} MCP not connected. In Grok Bot Plugins or Cursor Marketplace, search Knowz → Add → Authorize. Do not paste API keys in chat."

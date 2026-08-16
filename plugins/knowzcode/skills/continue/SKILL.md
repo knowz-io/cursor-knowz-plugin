@@ -1,0 +1,27 @@
+---
+name: continue
+description: "Resume an interrupted KnowzCode workflow. Use when the user wants to continue an active WorkGroup, load the latest local handoff, or advance the next pending phase."
+---
+
+# /knowzcode:continue — Resume workflow
+
+Resume the most relevant active KnowzCode WorkGroup from local files. Knowz MCP is optional and never blocks resume.
+
+## Instructions
+
+1. Check `knowzcode/handoffs/*.md`.
+   - If the user supplied a handoff path or slug, load that handoff.
+   - If no explicit path was supplied, find the newest handoff by filename timestamp.
+   - Handoffs are local operational state. Do not search Knowz vaults for workflow handoffs.
+2. Read `knowzcode/knowzcode_tracker.md` and locate active `[WIP]` work.
+3. If multiple active WorkGroups exist, ask the user which one to resume unless the selected handoff clearly names a WorkGroup.
+4. Read the selected WorkGroup file.
+5. If a handoff was loaded, parse `## Goal`, `## Current State`, `## Next Step`, `## References`, and `## Durable Learning Candidates`. Use the handoff as the freshest local state. Do not run `cmd:` references automatically.
+6. Resume at the next ordinary step:
+   - unfinished Change Set
+   - spec drafting or approval
+   - implementation
+   - read-only audit
+   - finalization
+7. Keep the workflow aligned with `knowzcode/knowzcode_loop.md` and do not skip quality gates unless the user explicitly asked for autonomous execution.
+8. Hand off execution to the same contract as `/knowzcode:work` for the current phase.

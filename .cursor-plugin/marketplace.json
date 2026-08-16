@@ -1,0 +1,55 @@
+{
+  "name": "cursor-knowz-plugin",
+  "owner": {
+    "name": "Knowz",
+    "email": "support@knowz.io"
+  },
+  "metadata": {
+    "description": "Knowz and KnowzCode plugins for Grok Bot and Cursor Marketplace — hosted knowledge vaults plus optional TDD quality-gate workflows"
+  },
+  "plugins": [
+    {
+      "name": "knowz",
+      "source": "./plugins/knowz",
+      "description": "Hosted Knowz MCP plus slim vault skills — search, save, ask, browse, and amend team knowledge after Authorize.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Knowz",
+        "email": "support@knowz.io"
+      },
+      "homepage": "https://knowz.io",
+      "repository": "https://github.com/knowz-io/cursor-knowz-plugin",
+      "license": "MIT",
+      "logo": "assets/logo.svg",
+      "category": "productivity",
+      "keywords": [
+        "knowz",
+        "knowledge",
+        "vaults",
+        "mcp",
+        "memory"
+      ]
+    },
+    {
+      "name": "knowzcode",
+      "source": "./plugins/knowzcode",
+      "description": "Slim TDD and quality-gate skills plus a Cursor rule. Knowz MCP is optional and never blocks.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Knowz",
+        "email": "support@knowz.io"
+      },
+      "homepage": "https://knowz.io",
+      "repository": "https://github.com/knowz-io/cursor-knowz-plugin",
+      "license": "MIT",
+      "logo": "assets/logo.svg",
+      "category": "developer-tools",
+      "keywords": [
+        "knowzcode",
+        "tdd",
+        "quality-gates",
+        "workflow"
+      ]
+    }
+  ]
+}

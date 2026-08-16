@@ -1,0 +1,27 @@
+{
+  "name": "knowzcode",
+  "displayName": "KnowzCode",
+  "version": "0.1.0",
+  "description": "Structured TDD development with quality gates, local handoffs, and a Cursor rule. Knowz MCP is optional and never blocks.",
+  "author": {
+    "name": "Knowz",
+    "email": "support@knowz.io"
+  },
+  "homepage": "https://knowz.io",
+  "repository": "https://github.com/knowz-io/cursor-knowz-plugin",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "knowzcode",
+    "tdd",
+    "quality-gates",
+    "workflow",
+    "methodology"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "knowzcode",
+    "tdd",
+    "quality-gates"
+  ]
+}
