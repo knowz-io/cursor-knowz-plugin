@@ -1,6 +1,6 @@
 # Knowz + KnowzCode for Grok Bot and Cursor
 
-Listed on Cursor Marketplace and Grok Bot Plugins as **Knowz AI**. Search **Knowz** and **KnowzCode** to install.
+Listed as **Knowz AI**. Two separately installable plugins — do not merge them.
 
 ## Install on Grok Bot
 
@@ -18,30 +18,22 @@ Personal + business Knowz tenants: see [MULTI-ACCOUNT.md](./MULTI-ACCOUNT.md). O
 
 ## Install on Cursor
 
-Same listing as Grok Bot.
+Same listing as Grok Bot (public listing waits on Cursor review).
 
-1. Open **Customize** or **Settings → Plugins**, or browse [cursor.com/marketplace](https://cursor.com/marketplace) after this repo is published.
+1. Open **Customize** or **Settings → Plugins**.
 2. Search **Knowz** and/or **KnowzCode**.
 3. **Install** / **Add**. For **Knowz**, **Authorize** when prompted.
 
-Until the public marketplace listing is live, a Cursor team can import this GitHub repo as a [team marketplace](https://cursor.com/docs/plugins.md).
-
 ## Two plugins
 
-| Plugin | What you get |
-|--------|----------------|
-| **Knowz** | Hosted MCP (`https://mcp.knowz.io/mcp`) plus slim vault skills: ask, save, search, browse, amend, setup, status, flush, auto |
-| **KnowzCode** | No `mcp.json`. Slim TDD / quality-gate skills plus a Cursor rule. Knowz MCP is **optional** and **never blocks** |
+| Plugin | Product name | What you get |
+|--------|----------------|--------------|
+| `knowz` | **Knowz** | Hosted MCP (`https://mcp.knowz.io/mcp`) plus slim vault skills: ask, save, search, browse, amend, setup, status, flush, auto |
+| `knowzcode` | **KnowzCode** | No `mcp.json`. Slim TDD / quality-gate skills plus a Cursor rule. Knowz MCP is **optional** and **never blocks** |
 
-They complement each other and each works alone. Install one or both.
+They complement each other. Each works alone. Install one or both — never as a single combined plugin.
 
-This repo does **not** replace the Claude marketplace:
-
-```text
-/plugin marketplace add knowz-io/knowz-skills
-```
-
-Use [knowz-io/knowz-skills](https://github.com/knowz-io/knowz-skills) for Claude Code and Codex. Use **this** repo for Grok Bot and Cursor Marketplace.
+This repo is **not** the Claude / Codex marketplace. Team imports must use **this** GitHub repo (`knowz-io/cursor-knowz-plugin`), not `knowz-io/knowz-skills` (that package ships Claude monoliths, relay, and telemetry).
 
 ## Which plugin?
 
@@ -108,10 +100,7 @@ plugins/knowzcode/      # TDD skills + rules/knowzcode.mdc
 - Email: support@knowz.io
 - Multiple accounts: [MULTI-ACCOUNT.md](./MULTI-ACCOUNT.md)
 - Privacy: [https://knowz.io/privacy](https://knowz.io/privacy)
-- Status: [https://status.knowz.io](https://status.knowz.io)
 
 ## License
 
 MIT — see [LICENSE](./LICENSE). Copyright 2026 Knowz / knowz-io.
-
-Skills and the Cursor rule are adapted from the Codex-slim packages in [knowz-io/knowz-skills](https://github.com/knowz-io/knowz-skills) at `35ff36297b6b98623efee48aa146c83cda58288a`.

@@ -11,12 +11,12 @@ Inspect Knowz MCP health and project routing. Auth for this plugin is Authorize 
 
 1. Check whether Knowz tools such as `mcp__knowz__list_vaults` are available.
 2. If available, call `mcp__knowz__list_vaults` with `includeStats: true`.
-3. Check project files only (do not hunt Codex `config.toml`, `claude mcp`, or pasted keys):
+3. Check project files only (do not hunt pasted keys):
    - `enterprise.json`
    - `knowz-vaults.md`
    - `knowz-pending.md`
 4. If tools are missing, tell the user to open **Grok Bot Plugins** or **Cursor Marketplace**, search **Knowz**, **Add**, then **Authorize**. Do not paste API keys. secret-request keys do not attach Bearer on Grok Bot.
-5. If tools work but vaults look like the wrong tenant, point at [MULTI-ACCOUNT.md](../../../../MULTI-ACCOUNT.md): same-browser-session token reuse, not a missing second URL.
+5. If tools work but vaults look like the wrong tenant: same-browser-session token reuse, not a missing second URL. Sign out of the first Knowz account in the browser before the second Authorize.
 6. Read `knowz-vaults.md` if present and validate listed vault IDs against the server response.
 7. Count pending items in `knowz-pending.md` if it exists.
 8. Report:

@@ -5,14 +5,14 @@
     "email": "support@knowz.io"
   },
   "metadata": {
-    "description": "Knowz and KnowzCode plugins for Grok Bot and Cursor Marketplace — hosted knowledge vaults plus optional TDD quality-gate workflows"
+    "description": "Knowz AI marketplace for Grok Bot and Cursor: two separately installable plugins — Knowz (hosted vault MCP) and KnowzCode (TDD quality-gate workflow)"
   },
   "plugins": [
     {
       "name": "knowz",
       "source": "./plugins/knowz",
-      "description": "Hosted Knowz MCP plus slim vault skills — search, save, ask, browse, and amend team knowledge after Authorize.",
-      "version": "0.1.0",
+      "description": "Knowz vaults via hosted MCP. Search, ask, save, browse, and amend team knowledge after Authorize. Install separately from KnowzCode.",
+      "version": "0.1.1",
       "author": {
         "name": "Knowz AI",
         "email": "support@knowz.io"
@@ -24,6 +24,7 @@
       "category": "productivity",
       "keywords": [
         "knowz",
+        "knowz-ai",
         "Knowz AI",
         "knowledge",
         "vaults",
@@ -34,8 +35,8 @@
     {
       "name": "knowzcode",
       "source": "./plugins/knowzcode",
-      "description": "Slim TDD and quality-gate skills plus a Cursor rule. Knowz MCP is optional and never blocks.",
-      "version": "0.1.0",
+      "description": "TDD and quality-gate coding workflow with local handoffs. No MCP in this plugin — Knowz vaults are a separate optional install and never block work.",
+      "version": "0.1.1",
       "author": {
         "name": "Knowz AI",
         "email": "support@knowz.io"
@@ -47,6 +48,7 @@
       "category": "developer-tools",
       "keywords": [
         "knowzcode",
+        "knowz-ai",
         "Knowz AI",
         "tdd",
         "quality-gates",

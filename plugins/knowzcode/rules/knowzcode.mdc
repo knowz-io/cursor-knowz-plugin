@@ -68,5 +68,4 @@ Knowz MCP is optional. Status may be tracked in `knowzcode/mcp_config.md` and va
 Connect via **Grok Bot Plugins** or **Cursor Marketplace**: search **Knowz** → **Add** → **Authorize**.
 Do not paste API keys in chat. secret-request keys do not attach Bearer on Grok Bot.
 Do not run `/knowz register` on an existing Knowz account (that creates a new account).
-Do not use `claude mcp`, Codex `config.toml`, or `/knowz setup <api-key>` as the primary path.
-X-Project-Path is in-tenant routing, not isolation. See the repo `MULTI-ACCOUNT.md` for personal + business tenants.
+X-Project-Path is in-tenant routing, not isolation. For personal + business tenants: one `knowz` connector, same URL, sign out of the first Knowz account in the browser before the second Authorize.

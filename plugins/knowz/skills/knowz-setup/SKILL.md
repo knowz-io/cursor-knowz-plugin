@@ -31,9 +31,9 @@ Otherwise tell the user to connect the plugin — do not paste API keys in chat,
 
 Do **not** run `/knowz register` when the user already has a Knowz account — that path creates a **new** account. Sign in during Authorize instead.
 
-Do **not** use `claude mcp`, Codex `config.toml`, or `/knowz setup <api-key>` as the primary setup. Those belong to other install surfaces.
+Do not paste API keys in chat. Grok Bot secret-request keys do not attach Bearer.
 
-For a second Knowz tenant (personal + business), follow [MULTI-ACCOUNT.md](../../../../MULTI-ACCOUNT.md): one connector named `knowz`, same URL, sign out of the first Knowz account in the browser (or use another profile) before the second Authorize.
+For a second Knowz tenant (personal + business): one connector named `knowz`, same URL `https://mcp.knowz.io/mcp`. Sign out of the first Knowz account in the browser (or use another profile) before the second Authorize. Same-browser-session token reuse looks connected but shows the same vaults.
 
 ## Endpoint
 

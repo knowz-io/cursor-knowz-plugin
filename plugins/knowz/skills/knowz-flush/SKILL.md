@@ -1,6 +1,6 @@
 ---
 name: knowz-flush
-description: "Flush idempotent queued knowledge operations (create, amend, update) from the canonical project-root knowz-pending.md queue, including safe migration of legacy KnowzCode captures."
+description: "Flush idempotent queued knowledge operations (create, amend, update) from the project-root knowz-pending.md queue. Use when MCP is back after a failed save/amend, or when the user asks to replay pending captures."
 ---
 
 # /knowz-flush — Process pending captures
