@@ -1,5 +1,7 @@
 # Knowz + KnowzCode for Grok Bot and Cursor
 
+Listed on Cursor Marketplace and Grok Bot Plugins as **Knowz AI**. Search **Knowz** and **KnowzCode** to install.
+
 ## Install on Grok Bot
 
 Grok Bot **Plugins** and Cursor Marketplace are the **same catalog**. Search **Knowz**, then **Add**, then **Authorize**.
@@ -101,6 +103,7 @@ plugins/knowzcode/      # TDD skills + rules/knowzcode.mdc
 
 ## Support
 
+- Publisher (listed as): Knowz AI
 - Product: [https://knowz.io](https://knowz.io)
 - Email: support@knowz.io
 - Multiple accounts: [MULTI-ACCOUNT.md](./MULTI-ACCOUNT.md)

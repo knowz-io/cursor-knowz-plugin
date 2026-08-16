@@ -1,7 +1,7 @@
 {
   "name": "cursor-knowz-plugin",
   "owner": {
-    "name": "Knowz",
+    "name": "Knowz AI",
     "email": "support@knowz.io"
   },
   "metadata": {
@@ -14,7 +14,7 @@
       "description": "Hosted Knowz MCP plus slim vault skills — search, save, ask, browse, and amend team knowledge after Authorize.",
       "version": "0.1.0",
       "author": {
-        "name": "Knowz",
+        "name": "Knowz AI",
         "email": "support@knowz.io"
       },
       "homepage": "https://knowz.io",
@@ -24,6 +24,7 @@
       "category": "productivity",
       "keywords": [
         "knowz",
+        "Knowz AI",
         "knowledge",
         "vaults",
         "mcp",
@@ -36,7 +37,7 @@
       "description": "Slim TDD and quality-gate skills plus a Cursor rule. Knowz MCP is optional and never blocks.",
       "version": "0.1.0",
       "author": {
-        "name": "Knowz",
+        "name": "Knowz AI",
         "email": "support@knowz.io"
       },
       "homepage": "https://knowz.io",
@@ -46,6 +47,7 @@
       "category": "developer-tools",
       "keywords": [
         "knowzcode",
+        "Knowz AI",
         "tdd",
         "quality-gates",
         "workflow"

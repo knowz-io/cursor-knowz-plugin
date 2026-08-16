@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Structured TDD development with quality gates, local handoffs, and a Cursor rule. Knowz MCP is optional and never blocks.",
   "author": {
-    "name": "Knowz",
+    "name": "Knowz AI",
     "email": "support@knowz.io"
   },
   "homepage": "https://knowz.io",
@@ -13,6 +13,7 @@
   "logo": "assets/logo.svg",
   "keywords": [
     "knowzcode",
+    "Knowz AI",
     "tdd",
     "quality-gates",
     "workflow",

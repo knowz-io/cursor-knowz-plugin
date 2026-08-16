@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Frictionless knowledge management via the hosted Knowz MCP server — search, save, ask, browse, and amend durable knowledge across vaults.",
   "author": {
-    "name": "Knowz",
+    "name": "Knowz AI",
     "email": "support@knowz.io"
   },
   "homepage": "https://knowz.io",
@@ -13,6 +13,7 @@
   "logo": "assets/logo.svg",
   "keywords": [
     "knowz",
+    "Knowz AI",
     "knowledge",
     "vaults",
     "mcp",
