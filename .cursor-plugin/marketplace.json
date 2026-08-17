@@ -5,7 +5,7 @@
     "email": "support@knowz.io"
   },
   "metadata": {
-    "description": "Knowz AI marketplace for Grok Bot and Cursor: two separately installable plugins — Knowz (hosted vault MCP) and KnowzCode (TDD quality-gate workflow)"
+    "description": "Knowz AI marketplace for Grok Bot and Cursor: two separately installable plugins — Knowz (hosted vault MCP) and KnowzCode (TDD quality-gate workflow with Grok-host process relay)"
   },
   "plugins": [
     {
@@ -36,8 +36,8 @@
     {
       "name": "knowzcode",
       "source": "./plugins/knowzcode",
-      "description": "TDD and quality-gate coding workflow with local handoffs. No MCP in this plugin — Knowz vaults are a separate optional install and never block work.",
-      "version": "0.1.1",
+      "description": "TDD and quality-gate coding workflow with local handoffs and Grok-host process relay to Codex or Claude Code. No MCP in this plugin — Knowz vaults are a separate optional install and never block work.",
+      "version": "0.2.0",
       "author": {
         "name": "Knowz AI",
         "email": "support@knowz.io"
@@ -53,7 +53,8 @@
         "Knowz AI",
         "tdd",
         "quality-gates",
-        "workflow"
+        "workflow",
+        "relay"
       ],
       "displayName": "KnowzCode"
     }
