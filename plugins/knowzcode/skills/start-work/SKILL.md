@@ -5,7 +5,7 @@ description: "Route implementation intent into KnowzCode workflow mode. Use for 
 
 # KnowzCode Start Work — Intent router
 
-Use this as a lightweight router into `/knowzcode:work`.
+Use this as a lightweight router into `work`.
 
 ## Instructions
 
@@ -15,19 +15,20 @@ Use this as a lightweight router into `/knowzcode:work`.
    - the user's current message
    - a recently discussed plan or investigation in the thread
    - an active WorkGroup in `knowzcode/workgroups/`
-4. Summarize the goal in one sentence and hand off to `/knowzcode:work` using the contract below.
-5. If there is not enough context to identify the goal safely, ask the user what should be implemented.
+4. Summarize the goal in one sentence and hand off to `work` using the contract below.
+5. If the user named Claude or Codex as the implementer, pass `--relay=claude` or `--relay=codex` in `flags`. Do not invent `--relay=other`. Literal named targets stay literal; `work` owns `auto`/`other` resolution.
+6. If there is not enough context to identify the goal safely, ask the user what should be implemented.
 
 ## Handoff payload
 
-When invoking `/knowzcode:work`, pass a structured payload so the workflow can skip re-discovery:
+When invoking `work`, pass a structured payload so the workflow can skip re-discovery:
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `goal` | string | yes | One-sentence imperative summary of what to build |
 | `source_path` | string | no | Path to the plan or investigation file the goal came from |
-| `tier` | `"micro" \| "light" \| "full"` | no | Pre-classified scope hint; `/knowzcode:work` may override |
-| `flags` | string | no | Pass-through flags such as `--autonomous` or `--tier full` |
+| `tier` | `"micro" \| "light" \| "full"` | no | Pre-classified scope hint; `work` may override |
+| `flags` | string | no | Pass-through flags such as `--autonomous`, `--tier full`, `--relay=claude`, or `--relay=codex` |
 | `prior_findings_summary` | string | no | 2-3 sentences summarizing key constraints/decisions from the source |
 
 Always include `goal`. Include `source_path` whenever a plan/investigation was the trigger.

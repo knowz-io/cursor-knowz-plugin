@@ -29,11 +29,11 @@ Same listing as Grok Bot (public listing waits on Cursor review).
 | Plugin | Product name | What you get |
 |--------|----------------|--------------|
 | `knowz` | **Knowz** | Hosted MCP (`https://mcp.knowz.io/mcp`) plus slim vault skills: ask, save, search, browse, amend, setup, status, flush, auto |
-| `knowzcode` | **KnowzCode** | No `mcp.json`. Slim TDD / quality-gate skills plus a Cursor rule. Knowz MCP is **optional** and **never blocks** |
+| `knowzcode` | **KnowzCode** | No `mcp.json`. Slim TDD / quality-gate skills, a Cursor rule, and Grok-host process relay to Codex or Claude Code. Knowz MCP is **optional** and **never blocks** |
 
 They complement each other. Each works alone. Install one or both — never as a single combined plugin.
 
-This repo is **not** the Claude / Codex marketplace. Team imports must use **this** GitHub repo (`knowz-io/cursor-knowz-plugin`), not `knowz-io/knowz-skills` (that package ships Claude monoliths, relay, and telemetry).
+This repo is **not** the Claude / Codex marketplace. Team imports must use **this** GitHub repo (`knowz-io/cursor-knowz-plugin`), not `knowz-io/knowz-skills` (that package ships Claude monoliths, Agent Teams, and telemetry). KnowzCode here includes the Grok-host process relay ported from knowz-skills at SHA `35ff36297b6b98623efee48aa146c83cda58288a` — same contract, host-patched for Grok Bot / Cursor. Do not merge Knowz and KnowzCode.
 
 ## Which plugin?
 
@@ -61,12 +61,18 @@ Do **not** run `/knowz register` on an existing Knowz account — that creates a
 
 ```text
 /knowzcode:setup      # initialize the framework in a repo
-/knowzcode:work "…"   # full TDD workflow with quality gates
+/knowzcode:work "…"   # full TDD workflow with quality gates (native Phase 2A by default)
+/knowzcode:relay "…"  # same workflow; Grok plans/reviews, Codex or Claude Code implements
 /knowzcode:explore    # research first
-/knowzcode:fix        # small localized change
+/knowzcode:fix        # small localized change (relay skipped)
 /knowzcode:regroup    # local handoff before clearing context
-/knowzcode:continue   # resume from the latest handoff
+/knowzcode:continue   # resume from the latest handoff or relay state
+/knowzcode:status     # project health plus relay host/target/detect
 ```
+
+`work --relay=codex` or `work --relay=claude` names a target and is never reversed. `--relay=other` / `--relay=auto` means the complementary coding agent: the one ready CLI, or ask which implementer if both Claude and Codex are ready. Ordinary `work` stays native.
+
+Relay runs on the **hosted Grok VM** when `claude` / `codex` are installed. Detection prepends `$HOME/.local/bin` and `/home/box/.local/bin` because `command -v` misses those paths. **Cursor cloud-agent VMs do not have those CLIs** — automatic selectors fall back to native Phase 2A; a named unavailable target stops with remediation. Never claim a cloud agent can run relay.
 
 KnowzCode never requires Knowz MCP. If vault tools are missing, the local workflow still runs.
 
