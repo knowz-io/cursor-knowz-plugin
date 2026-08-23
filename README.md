@@ -93,10 +93,60 @@ One server, no secrets in the repo, no `CLIENT_ID`, no `bearer_token_env_var`, n
 
 ## Repo layout
 
+The repo root is a **marketplace index**, not a plugin. Each plugin lives under
+`plugins/` and carries its own manifests.
+
 ```text
-.cursor-plugin/marketplace.json
-plugins/knowz/          # MCP + vault skills
-plugins/knowzcode/      # TDD skills + rules/knowzcode.mdc
+.grok-plugin/marketplace.json      # index Grok reads
+.cursor-plugin/marketplace.json    # index Cursor reads
+plugins/knowz/                     # MCP + vault skills
+  plugin.json                      # read first by `grok plugin validate`
+  .grok-plugin/plugin.json         # Grok-native location
+  .cursor-plugin/plugin.json       # Cursor
+  .mcp.json / mcp.json             # Grok / Cursor MCP config
+plugins/knowzcode/                 # TDD skills + rules/knowzcode.mdc
+  plugin.json
+  .grok-plugin/plugin.json
+  .cursor-plugin/plugin.json
+scripts/check-manifests.sh         # packaging guard
+```
+
+Grok resolves a plugin manifest in this order: `plugin.json`, then
+`.grok-plugin/plugin.json`, then `.claude-plugin/plugin.json`. It **never** reads
+`.cursor-plugin/`. Each plugin therefore ships a bare `plugin.json` alongside the
+Grok and Cursor copies. Because the bare copy wins, all three must stay in sync —
+`scripts/check-manifests.sh` enforces that.
+
+## Validate the packaging
+
+Validate each plugin separately. There are two plugins and two listings, so there
+are two commands:
+
+```bash
+grok plugin validate plugins/knowz
+grok plugin validate plugins/knowzcode
+```
+
+Both must print `Plugin manifest is valid.` with the matching `name` and `version`.
+
+Running `grok plugin validate` from the repo root prints **"No plugin.json found"**.
+That is correct: the root is the marketplace index. Adding a root `plugin.json`
+would present Knowz and KnowzCode as one merged plugin — never do that.
+
+`grok plugin validate` exits `0` even when it finds nothing, so check the message,
+not the exit code. The guard script does that for you, along with checking that the
+three manifests and both marketplace entries agree on name, displayName and version:
+
+```bash
+bash scripts/check-manifests.sh
+```
+
+If an installed copy reports `No plugin.json found`, it predates the manifests.
+Refresh the marketplace cache and the installed plugins:
+
+```bash
+grok plugin marketplace update cursor-knowz-plugin
+grok plugin update
 ```
 
 ## Support

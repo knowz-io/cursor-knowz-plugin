@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased
+
+Make `grok plugin validate` find a real manifest for each plugin (#5). Knowz and
+KnowzCode stay two separate plugins.
+
+- Add a bare `plugins/knowz/plugin.json` and `plugins/knowzcode/plugin.json`. Grok
+  resolves `plugin.json` before `.grok-plugin/plugin.json` before
+  `.claude-plugin/plugin.json`, and never reads `.cursor-plugin/`
+- Add `scripts/check-manifests.sh`: asserts each plugin's three manifests and both
+  marketplace entries agree on name, displayName and version; that referenced
+  `logo` / `mcpServers` paths exist; that the catalogs list exactly two plugins;
+  that the repo root has no `plugin.json`; and that `grok plugin validate` reports
+  a valid manifest for each plugin. `validate` exits 0 even when it finds nothing,
+  so the script matches on the message rather than the exit code
+- Document the exact validate commands, the manifest search order, and why running
+  `grok plugin validate` at the repo root correctly says "No plugin.json found"
+
+No version bump for either plugin: the manifests added in #4 already validate, and
+xai-org/plugin-marketplace#326 pins those versions alongside the commit SHA.
+
 ## 0.2.0
 
 Grok-host KnowzCode process relay, ported from knowz-io/knowz-skills at SHA `35ff36297b6b98623efee48aa146c83cda58288a`.
