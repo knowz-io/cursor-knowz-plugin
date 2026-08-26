@@ -37,14 +37,14 @@ Read [vault-access.md](../vault-access.md). Prefer `/knowz-cli` when `knowz` is 
 5. Resolve one stable `Idempotency Key` from `amend`, the resolved target vault, `KnowledgeId`, normalized title, and a digest of the exact delta. It MUST NOT contain a timestamp, retry count, agent/session ID, or attempt number. Reuse it for every retry.
 6. **Amend** via `knowz knowledge amend <id> "<delta>"` or `mcp__knowz__amend_knowledge` with the resolved KnowledgeId. Do NOT send the full prior content.
 7. **If the server reports the target is missing** (deleted concurrently, bad id): do NOT silently fall through to create a new item. Report the missing-target conflict and offer `/knowz-save` as the next step.
-8. **If MCP write fails** (server unreachable, auth expired), read `knowz-pending.md` first and append a canonical block only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
+8. **If the CLI or MCP write fails** (server unreachable, auth expired), read `knowz-pending.md` first and append a canonical block only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
 
    ```markdown
    ---
 
    ### {timestamp} -- Amend: {existing title}
    - **Operation**: amend
-   - **Idempotency Key**: {stable key resolved before the MCP mutation}
+   - **Idempotency Key**: {stable key resolved before the mutation}
    - **Queue Status**: pending
    - **KnowledgeId**: {id}
    - **Category**: {category}

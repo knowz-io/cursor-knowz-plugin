@@ -46,14 +46,14 @@ Read [vault-access.md](../vault-access.md). Prefer `/knowz-cli` when `knowz` is 
    - **Amend:** `knowz knowledge amend` or `mcp__knowz__amend_knowledge` with `id` = the matched item's ID and the delta payload. Send only the change, not a synthesized full body.
    - **Replace:** `knowz knowledge update` or `mcp__knowz__update_knowledge` with `id` = the matched item's ID and the complete new payload.
    - **Skip:** report that nothing was saved and stop.
-11. If MCP write fails, read `knowz-pending.md` first, then append a capture block using the canonical format only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
+11. If the CLI or MCP write fails, read `knowz-pending.md` first, then append a capture block using the canonical format only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
 
     ```markdown
     ---
 
     ### {timestamp} -- {title}
     - **Operation**: create | amend | update
-    - **Idempotency Key**: {stable key resolved before the MCP mutation}
+    - **Idempotency Key**: {stable key resolved before the mutation}
     - **Queue Status**: pending
     - **KnowledgeId**: {id}    # required for amend/update, omit for create
     - **Category**: {category}

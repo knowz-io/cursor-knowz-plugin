@@ -17,6 +17,7 @@ INSTALL_KNOWZCODE=1
 INSTALL_CLI=0
 REPLACE_COLLISIONS=0
 FORCE_REMOTE=0
+FAIL=0
 
 for arg in "$@"; do
   case "$arg" in
@@ -82,32 +83,56 @@ for p in data:
 ' "$1"
 }
 
+# Grok uninstall resolves a bare plugin name to the first registry match.
+# Never call `grok plugin uninstall knowz` when two copies exist.
+uninstall_collision() {
+  local name="$1" key="$2" src="$3"
+  echo "Uninstalling colliding $name via repo_key $key ($src)"
+  if ! grok plugin uninstall "$key" --confirm; then
+    echo "Grok did not uninstall repo_key $key. Refusing bare-name uninstall (it can delete this marketplace's copy)." >&2
+    FAIL=1
+    return 1
+  fi
+  if list_json | collision_sources "$name" | grep -F "$key" >/dev/null 2>&1; then
+    echo "Collision $key is still installed after uninstall." >&2
+    FAIL=1
+    return 1
+  fi
+}
+
 warn_or_replace() {
   local name="$1"
   local hits
   hits="$(list_json | collision_sources "$name" || true)"
   [ -n "$hits" ] || return 0
   local collision=0
+  local keys=()
+  local srcs=()
   while IFS=$'\t' read -r key src; do
-    [ -n "$src" ] || continue
+    [ -n "$key$src" ] || continue
     case "$src" in
       *knowz-skills*)
         collision=1
+        keys+=("$key")
+        srcs+=("$src")
         echo "COLLISION: $name is also installed from knowz-skills:"
         echo "  $key  $src"
         ;;
     esac
   done <<< "$hits"
-  if [ "$collision" -eq 1 ]; then
-    if [ "$REPLACE_COLLISIONS" -eq 1 ]; then
-      echo "Uninstalling colliding $name (knowz-skills is the wrong Grok Build package)…"
-      grok plugin uninstall "$name" --confirm || true
-    else
-      echo "Grok may load that copy instead of this slim plugin."
-      echo "This script still installs from a pinned path. To drop the other copy:"
-      echo "  $0 --replace-collisions"
-      echo "  # or: grok plugin uninstall $name --confirm"
-    fi
+  if [ "$collision" -eq 0 ]; then
+    return 0
+  fi
+  if [ "$REPLACE_COLLISIONS" -eq 1 ]; then
+    local i
+    for i in "${!keys[@]}"; do
+      uninstall_collision "$name" "${keys[$i]}" "${srcs[$i]}"
+    done
+  else
+    echo "Grok may load that copy instead of this slim plugin."
+    echo "This script still installs from a pinned path. To drop the other copy:"
+    echo "  $0 --replace-collisions"
+    echo "Do not run: grok plugin uninstall $name   # ambiguous when duplicates exist"
   fi
 }
 
@@ -137,8 +162,12 @@ install_one() {
   return "$status"
 }
 
-warn_or_replace knowz
-warn_or_replace knowzcode
+if [ "$INSTALL_KNOWZ" -eq 1 ]; then
+  warn_or_replace knowz
+fi
+if [ "$INSTALL_KNOWZCODE" -eq 1 ]; then
+  warn_or_replace knowzcode
+fi
 
 if [ "$INSTALL_KNOWZ" -eq 1 ]; then
   install_one "$KNOWZ_SOURCE" knowz
@@ -154,7 +183,8 @@ if [ "$INSTALL_CLI" -eq 1 ]; then
     npm i -g @knowzai/cli
     echo "Next: knowz login   (or knowz login --sso)"
   else
-    echo "npm not found; skip CLI install. npm i -g @knowzai/cli && knowz login" >&2
+    echo "npm not found; --cli was requested. Install Node/npm, then: npm i -g @knowzai/cli && knowz login" >&2
+    FAIL=1
   fi
 elif command -v knowz >/dev/null 2>&1; then
   echo "knowz CLI already on PATH: $(command -v knowz)"
@@ -173,3 +203,4 @@ echo "  CLI:     knowz login, then /knowz-cli"
 echo "  MCP:     /mcps → knowz → press i to OAuth"
 echo "KnowzCode: /knowzcode:setup then /knowzcode:work"
 echo "Do not paste API keys in chat. Do not run /knowz register on an existing account."
+exit "$FAIL"

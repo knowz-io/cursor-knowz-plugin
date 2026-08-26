@@ -9,7 +9,7 @@ Connect Knowz (CLI or hosted MCP), then write project vault routing.
 
 Read [vault-access.md](../vault-access.md). Pick the host the user is on.
 
-If `knowz` is on PATH or Knowz MCP tools are already available, skip to **Create or refresh vault routing**.
+Skip to **Create or refresh vault routing** only when a backend is actually usable: `knowz whoami` exits 0, or Knowz MCP tools are present in this session. `command -v knowz` alone is not enough (a fresh `npm i -g @knowzai/cli` is commonly logged out; exit 3 → `knowz login` or `knowz login --sso`). If neither backend is ready, follow the host connect steps below, then come back.
 
 ## Grok Build (local `grok` CLI)
 

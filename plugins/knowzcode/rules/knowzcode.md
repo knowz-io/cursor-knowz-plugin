@@ -59,9 +59,11 @@ Before any feature work, read:
 
 ## Knowledge capture
 
-Durable candidates (decisions, patterns, gotchas, workarounds) should be saved when a Knowz backend is available (`knowz` CLI or MCP). When it is not, keep the candidate in the WorkGroup journal or `knowz-pending.md`. Never block a phase on Knowz.
-
-Use `/knowz-save` when the Knowz plugin is installed. Treat vault entries as point-in-time leads to verify against the live codebase.
+Every durable candidate — decisions, patterns, gotchas, workarounds — should be classified by the lead with `node knowzcode/context_efficiency_runtime.mjs vault-delta` when that runtime exists.
+`skip` and `batch` perform no MCP, CLI, or pending-queue write. Persist only the returned `amend`, `update`, or consolidated `flush`, always passing the configured `vaultId` when a Knowz backend exists (CLI or MCP).
+When Knowz is unavailable, keep `batch` in the WorkGroup journal and queue only a required classified persistence action once. Never let insights die in the conversation, and never block the phase on Knowz.
+Use `/knowz-save` as an explicit-save candidate when the Knowz plugin is installed; it still passes through the classifier.
+Treat vault entries as point-in-time leads to verify against the live codebase.
 
 ## Slash commands
 
