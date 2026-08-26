@@ -38,13 +38,23 @@ Pick the host the user is actually on — do not give Grok Bot steps to Grok Bui
 
 ```bash
 grok plugin marketplace add knowz-io/cursor-knowz-plugin
-grok plugin install knowz --trust
-# optional CLI (preferred):
+grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust
+# optional CLI (preferred; no MCP OAuth):
 npm i -g @knowzai/cli && knowz login
-# or MCP with a key (user-scope config, not chat):
+```
+
+`--trust` attaches `https://mcp.knowz.io/mcp` but does **not** complete login. Authenticate MCP in the TUI:
+
+1. New Grok session (or `r` in the Plugins tab).
+2. `/mcps` → select **knowz** → press `i` to OAuth in the browser.
+3. `/knowz-status`. `grok mcp doctor knowz` saying `OAuth authorization required` means this step is still pending.
+
+Static API key (user-scope config, **never** chat):
+
+```bash
 grok mcp add --transport http knowz https://mcp.knowz.io/mcp --header "Authorization: Bearer <api-key>"
 ```
 
-`--trust` is required so this plugin's `.mcp.json` attaches. Start a new Grok session after install.
+Do not add `knowz-io/knowz-skills` as a Grok marketplace. If two `knowz` plugins are installed, Grok may load the Claude package instead — see `docs/grok-build.md`.
 
 **Grok Bot / Cursor Marketplace:** Plugins → search **Knowz** → **Add** → **Authorize**. Do not paste API keys in Grok Bot chat (secret-request keys do not attach Bearer).

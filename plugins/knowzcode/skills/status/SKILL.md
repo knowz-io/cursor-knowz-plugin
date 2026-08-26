@@ -1,6 +1,6 @@
 ---
 name: status
-description: "Check KnowzCode project health, active work, pending captures, and Grok-host process relay configuration, readiness, and in-flight state. Use for status, setup verification, or troubleshooting. Knowz MCP is optional."
+description: "Check KnowzCode project health, active work, pending captures, and Grok-host process relay configuration, readiness, and in-flight state. Use for status, setup verification, troubleshooting, or /knowzcode:status. Knowz MCP is optional."
 ---
 
 # status — Project status
@@ -13,7 +13,7 @@ Report local KnowzCode health without starting or resuming work. Knowz MCP is op
 2. Inspect `knowzcode/knowzcode_tracker.md` for `[WIP]`, `[VERIFIED]`, and planned work.
 3. Count active and completed WorkGroups in `knowzcode/workgroups/` if that directory exists.
 4. Count queued items in the project-root `knowz-pending.md` when present. If legacy `knowzcode/pending_captures.md` exists, report it separately as migration input; do not count it as a second active queue.
-5. If `knowz` is on PATH, `knowz vault list --json`. Else if Knowz MCP is available, `mcp__knowz__list_vaults` with `includeStats: true`. If neither, report that Knowz enhancement is unavailable and the local workflow still works. Grok Build connect: `grok plugin install knowz --trust`. Do not paste API keys in Grok Bot chat.
+5. If `knowz` is on PATH, `knowz vault list --json`. Else if Knowz MCP is available, `mcp__knowz__list_vaults` with `includeStats: true`. If neither, report that Knowz enhancement is unavailable and the local workflow still works. Grok Build connect: `grok plugin install knowz --trust`, then `knowz login` or `/mcps` → **knowz** → `i`. Do not paste API keys in Grok Bot chat.
 6. Evaluate relay status using the fixed `RELAY_HOST=grok` rules below.
 7. End with one practical action: initialize, continue work, authenticate/install a target CLI, flush captures, or (only if they want vaults) Grok Build `grok plugin install knowz --trust` / Grok Bot or Cursor → search **Knowz** → **Add** → **Authorize**.
 

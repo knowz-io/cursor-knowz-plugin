@@ -1,6 +1,6 @@
 ---
 name: knowz-setup
-description: "Connect Knowz MCP and create vault routing files. Use after installing the Knowz plugin, for first-time vault mapping, or when tools are missing after Authorize."
+description: "Connect Knowz (CLI or hosted MCP) and create vault routing files. Use after installing the Knowz plugin, for first-time vault mapping, Grok Build /mcps OAuth, or when tools are missing after Authorize."
 ---
 
 # /knowz-setup — Connect and map vaults
@@ -15,11 +15,16 @@ If `knowz` is on PATH or Knowz MCP tools are already available, skip to **Create
 
 ```bash
 grok plugin marketplace add knowz-io/cursor-knowz-plugin
-grok plugin install knowz --trust
+grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust
 npm i -g @knowzai/cli && knowz login    # optional, preferred
 ```
 
-`--trust` attaches `https://mcp.knowz.io/mcp`. Start a new Grok session. API keys belong in `grok mcp add --header`, never in the chat transcript.
+`--trust` attaches `https://mcp.knowz.io/mcp` but does not log in. Start a new Grok session. Then either:
+
+- CLI: `knowz whoami` (exit 3 → `knowz login`)
+- MCP OAuth: `/mcps` → **knowz** → press `i`
+
+`grok mcp doctor knowz` reporting `OAuth authorization required` means OAuth is still pending. API keys belong in `grok mcp add --header`, never in the chat transcript. Do not add `knowz-io/knowz-skills` as a Grok marketplace.
 
 ## Grok Bot / Cursor Marketplace
 

@@ -6,7 +6,7 @@ Listed as **Knowz AI**. Two separately installable plugins — do not merge them
 
 | Host | How to install |
 |------|----------------|
-| **Grok Build** | `grok plugin marketplace add knowz-io/cursor-knowz-plugin` then `grok plugin install knowz --trust` and/or `knowzcode --trust` |
+| **Grok Build** | `grok plugin marketplace add knowz-io/cursor-knowz-plugin` then `grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust` (and `#plugins/knowzcode`) |
 | **Grok Bot** | Plugins → search **Knowz** / **KnowzCode** → **Add** → **Authorize** (Knowz only) |
 | **Cursor** | Customize → Plugins → same listing |
 
@@ -16,18 +16,24 @@ Full Grok Build notes: [docs/grok-build.md](./docs/grok-build.md). One-shot from
 
 ```bash
 grok plugin marketplace add knowz-io/cursor-knowz-plugin
-grok plugin install knowz --trust
-grok plugin install knowzcode --trust
-npm i -g @knowzai/cli && knowz login    # optional; preferred for vault ops
+grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust
+grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowzcode --trust
 ```
 
-`--trust` attaches Knowz MCP. Start a **new** Grok session, then `/knowz-status` and `/knowzcode:setup`.
+`--trust` attaches Knowz MCP. Start a **new** Grok session. Then vault login — pick one:
 
-Do not paste API keys in the Grok Build chat. Put a key in user-scope config if you skip OAuth:
+```bash
+npm i -g @knowzai/cli && knowz login    # preferred; no MCP OAuth
+# or in the TUI: /mcps → knowz → press i
+```
+
+Then `/knowz-status` and `/knowzcode:setup`. Do not paste API keys in chat. A static key belongs in user-scope config only:
 
 ```bash
 grok mcp add --transport http knowz https://mcp.knowz.io/mcp --header "Authorization: Bearer <api-key>"
 ```
+
+Do not add `knowz-io/knowz-skills` as a Grok marketplace. If `grok plugin list` shows two `knowz` entries, see [docs/grok-build.md](./docs/grok-build.md#collisions-with-knowz-skills).
 
 ## Install on Grok Bot
 
@@ -134,10 +140,12 @@ plugins/knowz/                     # MCP + vault skills
   .grok-plugin/plugin.json         # Grok-native location
   .cursor-plugin/plugin.json       # Cursor
   .mcp.json / mcp.json             # Grok / Cursor MCP config
-plugins/knowzcode/                 # TDD skills + rules/knowzcode.mdc
+plugins/knowzcode/                 # TDD skills + Grok/Cursor rules
   plugin.json
   .grok-plugin/plugin.json
   .cursor-plugin/plugin.json
+  rules/knowzcode.md               # copied to .grok/rules/ on Grok Build setup
+  rules/knowzcode.mdc              # Cursor always-on rule
 scripts/check-manifests.sh         # packaging guard
 ```
 

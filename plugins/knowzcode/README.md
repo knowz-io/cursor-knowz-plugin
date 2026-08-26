@@ -8,7 +8,7 @@ Process relay is ported from the Codex plugin slim surfaces in [knowz-io/knowz-s
 
 ## Install
 
-**Grok Build:** `grok plugin marketplace add knowz-io/cursor-knowz-plugin` then `grok plugin install knowzcode --trust`.
+**Grok Build:** `grok plugin marketplace add knowz-io/cursor-knowz-plugin` then `grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowzcode --trust`. Start a new session, then `/knowzcode:setup` (writes `.grok/rules/knowzcode.md`; does not require `.cursor/rules`). Slash form is `/knowzcode:work` when `work` collides. Use the `#plugins/knowzcode` source if `knowz-skills` is also a marketplace — a bare `install knowzcode` is then ambiguous.
 
 **Grok Bot / Cursor:** Plugins → search **KnowzCode** → **Add**.
 

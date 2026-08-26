@@ -1,6 +1,6 @@
 ---
 name: knowz-cli
-description: "Use the knowz CLI for vault operations instead of MCP — search, ask, save, amend, browse, attach. Use when knowz is on PATH, MCP is unauthenticated, or the user runs /knowz-cli."
+description: "Use the knowz CLI for vault operations instead of MCP — search, ask, save, amend, browse, attach. Use when knowz is on PATH, Grok MCP OAuth is pending, or the user runs /knowz-cli."
 ---
 
 # /knowz-cli — CLI vault operations

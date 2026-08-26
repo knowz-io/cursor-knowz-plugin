@@ -10,13 +10,15 @@ Connects agents to Knowz vaults: **CLI first** (`knowz` / `/knowz-cli`) then hos
 
 ```bash
 grok plugin marketplace add knowz-io/cursor-knowz-plugin
-grok plugin install knowz --trust
-npm i -g @knowzai/cli && knowz login    # optional
+grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust
+npm i -g @knowzai/cli && knowz login    # optional, preferred
 ```
+
+`--trust` attaches MCP. Login is separate: `knowz login`, or in the TUI `/mcps` → **knowz** → press `i` to OAuth.
 
 **Grok Bot / Cursor:** Plugins → search **Knowz** → **Add** → **Authorize**.
 
-Do not paste API keys in chat. Do not run `/knowz register` on an existing Knowz account (that creates a new account). Sign in during Authorize.
+Do not paste API keys in chat. Do not run `/knowz register` on an existing Knowz account (that creates a new account). Sign in during Authorize. Do not add `knowz-io/knowz-skills` as a Grok marketplace.
 
 Personal + business tenants: one connector named `knowz`, same URL. Sign out of the first Knowz account in the browser before the second Authorize.
 

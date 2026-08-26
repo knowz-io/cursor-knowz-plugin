@@ -1,6 +1,6 @@
 ---
 name: work
-description: "Start a structured KnowzCode workflow for feature work, multi-file changes, or meaningful refactors with TDD and quality gates. Supports Grok-host process relay to Claude Code or Codex via --relay, natural-language delegation, project config, or the relay skill. For single-file changes under ~50 lines use fix; for read-only research use explore."
+description: "Start a structured KnowzCode workflow for feature work, multi-file changes, or meaningful refactors with TDD and quality gates. Use when the user wants to BUILD, IMPLEMENT, or CREATE code, or runs /knowzcode:work. Supports Grok-host process relay to Claude Code or Codex via --relay. For single-file changes under ~50 lines use /knowzcode:fix; for read-only research use /knowzcode:explore."
 ---
 
 # work — Structured workflow

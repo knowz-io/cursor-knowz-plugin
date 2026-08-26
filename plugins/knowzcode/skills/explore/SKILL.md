@@ -1,6 +1,6 @@
 ---
 name: explore
-description: "Research a codebase area before implementation. Use when the user wants investigation, architectural context, prior art, or options before changing code."
+description: "Research a codebase area before implementation. Use when the user wants investigation, architectural context, prior art, a plan, or runs /knowzcode:explore."
 ---
 
 # /knowzcode:explore — Research before implementing
