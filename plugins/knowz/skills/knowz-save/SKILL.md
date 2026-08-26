@@ -11,6 +11,8 @@ If `enterprise.json` exists in the project root, use its `brand` value instead o
 
 ## Instructions
 
+Read [vault-access.md](../vault-access.md). Prefer `/knowz-cli` when `knowz` is on PATH.
+
 1. Read `knowz-vaults.md` from the project root if it exists.
 2. Parse the content the user wants to save.
 3. Perform reads and writes directly from the current agent. Do not assume delegated writer agents.
@@ -33,25 +35,25 @@ If `enterprise.json` exists in the project root, use its `brand` value instead o
    [TAGS] category, technology, domain keywords
    ```
 7. Generate a title in the form `{Category}: {Descriptive summary}`.
-8. Run a dedupe check with `mcp__knowz__search_knowledge` using the title and target vault. If there is a close match, offer the user four choices:
+8. Run a dedupe check (`knowz search` or `mcp__knowz__search_knowledge`) using the title and target vault. If there is a close match, offer the user four choices:
    - **Create anyway** — new, separate entry
    - **Skip** — don't save
    - **Amend existing item** — apply a targeted delta (add a line, fix a phrase, change a tag). Preferred for partial changes.
    - **Replace existing item** — full rewrite with a complete new body
 9. Resolve one stable `Idempotency Key` before the mutation. Derive it from the chosen operation, resolved target vault, matched `KnowledgeId` or semantic identity when present, normalized title, and a digest of the exact payload. It MUST NOT contain a timestamp, retry count, agent/session ID, or attempt number. Reuse the same key if the response is lost or the operation is retried.
 10. Execute the chosen path:
-   - **Create (default, no dedupe match, or "Create anyway"):** call `mcp__knowz__create_knowledge` with `knowledgeType: "Note"`, the chosen `vaultId`, and tags.
-   - **Amend:** call `mcp__knowz__amend_knowledge` with `id` = the matched item's ID and the delta payload. Send only the change, not a synthesized full body.
-   - **Replace:** call `mcp__knowz__update_knowledge` with `id` = the matched item's ID and the complete new payload.
+   - **Create (default, no dedupe match, or "Create anyway"):** `knowz knowledge create` or `mcp__knowz__create_knowledge` with `knowledgeType: "Note"`, the chosen `vaultId`, and tags.
+   - **Amend:** `knowz knowledge amend` or `mcp__knowz__amend_knowledge` with `id` = the matched item's ID and the delta payload. Send only the change, not a synthesized full body.
+   - **Replace:** `knowz knowledge update` or `mcp__knowz__update_knowledge` with `id` = the matched item's ID and the complete new payload.
    - **Skip:** report that nothing was saved and stop.
-11. If MCP write fails, read `knowz-pending.md` first, then append a capture block using the canonical format only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
+11. If the CLI or MCP write fails, read `knowz-pending.md` first, then append a capture block using the canonical format only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
 
     ```markdown
     ---
 
     ### {timestamp} -- {title}
     - **Operation**: create | amend | update
-    - **Idempotency Key**: {stable key resolved before the MCP mutation}
+    - **Idempotency Key**: {stable key resolved before the mutation}
     - **Queue Status**: pending
     - **KnowledgeId**: {id}    # required for amend/update, omit for create
     - **Category**: {category}
@@ -65,4 +67,4 @@ If `enterprise.json` exists in the project root, use its `brand` value instead o
 
     Report the queued key and that `/knowz-flush` can replay it. Never downgrade a failed amend/update to create.
 
-If Knowz MCP tools are unavailable, queue as above when the user still wants the capture, and report: "{brand} MCP not connected. In Grok Bot Plugins or Cursor Marketplace, search Knowz → Add → Authorize. Do not paste API keys in chat."
+If neither CLI nor MCP can write, queue as above when the user still wants the capture, and follow [vault-access.md](../vault-access.md) to reconnect. Do not paste API keys in Grok Bot chat.

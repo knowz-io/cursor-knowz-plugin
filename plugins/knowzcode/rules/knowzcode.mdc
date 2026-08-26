@@ -65,7 +65,9 @@ Vault entries are retrieved via semantic search — write detailed, self-contain
 
 ## MCP Configuration
 Knowz MCP is optional. Status may be tracked in `knowzcode/mcp_config.md` and vaults in `knowz-vaults.md` (project root).
-Connect via **Grok Bot Plugins** or **Cursor Marketplace**: search **Knowz** → **Add** → **Authorize**.
+Prefer the `knowz` CLI when it is on PATH.
+Grok Build: `grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust`, then `knowz login` or `/mcps` → **knowz** → press `i` to OAuth. Never a bare `grok plugin install knowz`.
+Grok Bot Plugins or Cursor Marketplace: search **Knowz** → **Add** → **Authorize**.
 Do not paste API keys in chat. secret-request keys do not attach Bearer on Grok Bot.
 Do not run `/knowz register` on an existing Knowz account (that creates a new account).
 X-Project-Path is in-tenant routing, not isolation. For personal + business tenants: one `knowz` connector, same URL, sign out of the first Knowz account in the browser before the second Authorize.

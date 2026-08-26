@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+Grok **Build** (local `grok` CLI) is a first-class host alongside Grok Bot and Cursor.
+
+- Knowz **0.1.2**: CLI-first vault access (`skills/vault-access.md`, `/knowz-cli`); Grok Build install (`grok plugin marketplace add knowz-io/cursor-knowz-plugin`, `grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust`); MCP OAuth via `/mcps` then `i` (doctor `OAuth authorization required` until then); `docs/grok-build.md` and `scripts/install-grok.sh` (`--cli`, `--replace-collisions`, GitHub fallback). Grok Bot Authorize path unchanged. Do not merge with KnowzCode. Do not add `knowz-io/knowz-skills` as a Grok marketplace.
+- KnowzCode **0.2.1**: same Grok Build install; optional vault via CLI then MCP; never blocks TDD. Setup uses `npx knowzcode install` and adds `--platforms cursor` only when a Cursor surface applies (not merely because `grok` is on PATH); copies `rules/knowzcode.md` to `.grok/rules/`. Slash form `/knowzcode:work` when `work` collides.
+- Review follow-up (PR #7 Copilot): `--replace-collisions` uninstalls by `repo_key` and fails closed (never a bare `uninstall knowz` when duplicates exist); `--knowz-only` / `--knowzcode-only` gate the collision pass; `--cli` without npm exits nonzero; vault resolver has an explicit `neither`; CLI/MCP write failures both queue; shell-safety + `--file` for creates; Grok rule uses the classifier contract.
+
+## 0.1.1 / 0.2.0 packaging
+
 Make `grok plugin validate` find a real manifest for each plugin (#5). Knowz and
 KnowzCode stay two separate plugins.
 

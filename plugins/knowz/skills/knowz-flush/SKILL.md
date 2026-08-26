@@ -9,7 +9,7 @@ Drain the canonical project-root `knowz-pending.md` queue into Knowz vaults. Eac
 
 If `enterprise.json` exists in the project root, use its `brand` value instead of "Knowz" in user-facing text.
 
-If Knowz MCP tools are unavailable, stop after reporting the queue count and: "{brand} MCP not connected. In Grok Bot Plugins or Cursor Marketplace, search Knowz → Add → Authorize. Do not paste API keys in chat."
+Read [vault-access.md](../vault-access.md). If neither CLI nor MCP is available, stop after reporting the queue count and follow that file's connect steps. Do not paste API keys in Grok Bot chat.
 
 ## Instructions
 
@@ -30,7 +30,7 @@ If Knowz MCP tools are unavailable, stop after reporting the queue count and: "{
    - Byte-equivalent logical mutations are one retry group and are executed at most once.
    - A key reused for different operation, identity, target, or payload is a collision. Execute none of that group.
 5. Read `knowz-vaults.md` and resolve `Target Vault` as an explicit ID/name or configured routing token. Empty or ambiguous resolution leaves the block queued.
-6. Verify the MCP tools required by the queued operations before processing them. Create replay also requires a Knowz search capability; amend/update replay requires `get_knowledge_item` plus the matching mutation tool. If a required tool is unavailable, leave that operation queued rather than weakening replay safety.
+6. Verify the CLI commands or MCP tools required by the queued operations before processing them. Create replay also requires search; amend/update replay requires get plus the matching mutation. If a required capability is unavailable, leave that operation queued rather than weakening replay safety.
 7. Preflight every retry group before mutation:
    - **create:** search the resolved vault by the exact title and compare content/semantic identity. One materially identical item means the operation already succeeded; count it as idempotently reconciled. No match permits create. A similar-title item with conflicting content or multiple plausible matches is ambiguous and remains queued.
    - **amend:** fetch `KnowledgeId`. If missing, leave queued as `MISSING_AMEND_TARGET`; never create. If the requested delta is already reflected exactly, count it as reconciled. If applicability is ambiguous, leave queued for review; otherwise call amend once.

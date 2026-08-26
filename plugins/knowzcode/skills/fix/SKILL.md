@@ -1,6 +1,6 @@
 ---
 name: fix
-description: "Apply a quick, targeted KnowzCode micro-fix. Use when the requested change is small, localized, and does not need the full multi-phase workflow."
+description: "Apply a quick, targeted KnowzCode micro-fix. Use when the requested change is small, localized, under ~50 lines, or the user runs /knowzcode:fix."
 ---
 
 # /knowzcode:fix — Micro-fix

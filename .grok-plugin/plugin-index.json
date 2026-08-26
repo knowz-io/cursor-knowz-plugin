@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "plugins": {
+    "knowz": {
+      "components": {
+        "skills": [
+          { "name": "knowz-cli", "description": "Prefer the knowz CLI for vault operations" },
+          { "name": "knowz-ask", "description": "Ask vaults (CLI then MCP)" },
+          { "name": "knowz-save", "description": "Capture durable knowledge" },
+          { "name": "knowz-search", "description": "Semantic search" },
+          { "name": "knowz-browse", "description": "Browse vaults and topics" },
+          { "name": "knowz-amend", "description": "Targeted edit of an existing item" },
+          { "name": "knowz-setup", "description": "Connect CLI or MCP and write knowz-vaults.md" },
+          { "name": "knowz-status", "description": "CLI / MCP and vault routing health" },
+          { "name": "knowz-flush", "description": "Replay knowz-pending.md" },
+          { "name": "knowz-auto", "description": "Lightweight vault intent routing" }
+        ],
+        "mcpServers": [
+          { "name": "knowz", "description": "https://mcp.knowz.io/mcp — Grok Build: /mcps then i to OAuth; CLI preferred when installed" }
+        ]
+      }
+    },
+    "knowzcode": {
+      "components": {
+        "skills": [
+          { "name": "work", "description": "TDD workflow with quality gates (/knowzcode:work)" },
+          { "name": "explore", "description": "Research before implementing (/knowzcode:explore)" },
+          { "name": "fix", "description": "Single-file micro-fix (/knowzcode:fix)" },
+          { "name": "setup", "description": "Initialize KnowzCode; Grok Build writes .grok/rules" },
+          { "name": "continue", "description": "Resume a WorkGroup or relay" },
+          { "name": "status", "description": "Project and relay health" },
+          { "name": "relay", "description": "Grok plans; Claude or Codex implements" },
+          { "name": "regroup", "description": "Local handoff before clearing context" },
+          { "name": "regroup-trigger", "description": "Offer regroup on pause intent" },
+          { "name": "start-work", "description": "Route implementation intent into work" }
+        ]
+      }
+    }
+  }
+}

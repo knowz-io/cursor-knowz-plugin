@@ -1,6 +1,8 @@
 # Multiple Knowz accounts (personal + business)
 
-Grok Bot and Cursor Marketplace share one plugin catalog. Knowz uses **one connector** named `knowz` at **one URL**:
+Grok Bot and Cursor Marketplace share one plugin catalog. Grok Build uses the same MCP URL after `grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust`; authenticate with `/mcps` → **knowz** → `i`, or skip MCP and use `knowz login` on the CLI.
+
+Knowz uses **one connector** named `knowz` at **one URL**:
 
 ```text
 https://mcp.knowz.io/mcp

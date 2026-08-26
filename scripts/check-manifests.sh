@@ -106,6 +106,21 @@ for mk in "${MARKETPLACES[@]}"; do
   [ "$n" = "2" ] || bad "$mk lists $n plugins, expected exactly 2 (knowz + knowzcode)"
 done
 
+echo "== Grok Build packaging extras"
+[ -f docs/grok-build.md ] || bad "missing docs/grok-build.md"
+[ -x scripts/install-grok.sh ] || bad "scripts/install-grok.sh is not executable"
+[ -f plugins/knowz/.mcp.json ] || bad "missing plugins/knowz/.mcp.json (Grok plugin MCP)"
+[ -f plugins/knowz/mcp.json ] || bad "missing plugins/knowz/mcp.json (Cursor MCP)"
+python3 - <<'PY' || bad "plugins/knowz .mcp.json and mcp.json differ"
+import json, pathlib
+a = json.loads(pathlib.Path("plugins/knowz/.mcp.json").read_text())
+b = json.loads(pathlib.Path("plugins/knowz/mcp.json").read_text())
+if a != b:
+    raise SystemExit(1)
+PY
+[ -f plugins/knowzcode/rules/knowzcode.md ] || bad "missing plugins/knowzcode/rules/knowzcode.md (Grok project rule)"
+[ -f plugins/knowzcode/rules/knowzcode.mdc ] || bad "missing plugins/knowzcode/rules/knowzcode.mdc (Cursor rule)"
+
 if command -v grok >/dev/null 2>&1; then
   echo "== grok plugin validate"
   for p in "${PLUGINS[@]}"; do
