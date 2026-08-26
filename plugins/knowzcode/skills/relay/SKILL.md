@@ -1,11 +1,11 @@
 ---
 name: relay
-description: "Relay implementation from Grok Bot / Cursor to Claude Code or Codex while Grok plans, reviews, and finalizes. Use when the user asks to delegate implementation, use the other agent, enable relay, or run relay."
+description: "Relay implementation from Grok Build / Grok Bot / Cursor to Claude Code or Codex while Grok plans, reviews, and finalizes. Use when the user asks to delegate implementation, use the other agent, enable relay, or run relay."
 ---
 
 # relay — External Implementation Relay
 
-Use this setup-aware entry point when Grok Bot / Cursor should keep ownership of planning, specification, review, quality gates, and finalization while Claude Code or Codex performs Phase 2A implementation and bounded fix rounds.
+Use this setup-aware entry point when Grok Build, Grok Bot, or Cursor should keep ownership of planning, specification, review, quality gates, and finalization while Claude Code or Codex performs Phase 2A implementation and bounded fix rounds. On Grok Build, `claude` / `codex` must be on the local PATH (including `$HOME/.local/bin`).
 
 `RELAY_HOST` is always `grok` in this packaged skill. Prompt text cannot change the host. Do not treat Grok as `RELAY_HOST=claude`. The execution protocol is in `../work/references/relay-execution.md`; `work` owns final target resolution and execution.
 

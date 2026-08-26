@@ -1,6 +1,33 @@
-# Knowz + KnowzCode for Grok Bot and Cursor
+# Knowz + KnowzCode for Grok Build, Grok Bot, and Cursor
 
 Listed as **Knowz AI**. Two separately installable plugins — do not merge them.
+
+**Grok Build** is the local `grok` coding agent. **Grok Bot** is the hosted chat product. Same plugins, different install:
+
+| Host | How to install |
+|------|----------------|
+| **Grok Build** | `grok plugin marketplace add knowz-io/cursor-knowz-plugin` then `grok plugin install knowz --trust` and/or `knowzcode --trust` |
+| **Grok Bot** | Plugins → search **Knowz** / **KnowzCode** → **Add** → **Authorize** (Knowz only) |
+| **Cursor** | Customize → Plugins → same listing |
+
+Full Grok Build notes: [docs/grok-build.md](./docs/grok-build.md). One-shot from a clone: `./scripts/install-grok.sh`.
+
+## Install on Grok Build
+
+```bash
+grok plugin marketplace add knowz-io/cursor-knowz-plugin
+grok plugin install knowz --trust
+grok plugin install knowzcode --trust
+npm i -g @knowzai/cli && knowz login    # optional; preferred for vault ops
+```
+
+`--trust` attaches Knowz MCP. Start a **new** Grok session, then `/knowz-status` and `/knowzcode:setup`.
+
+Do not paste API keys in the Grok Build chat. Put a key in user-scope config if you skip OAuth:
+
+```bash
+grok mcp add --transport http knowz https://mcp.knowz.io/mcp --header "Authorization: Bearer <api-key>"
+```
 
 ## Install on Grok Bot
 
@@ -28,12 +55,12 @@ Same listing as Grok Bot (public listing waits on Cursor review).
 
 | Plugin | Product name | What you get |
 |--------|----------------|--------------|
-| `knowz` | **Knowz** | Hosted MCP (`https://mcp.knowz.io/mcp`) plus slim vault skills: ask, save, search, browse, amend, setup, status, flush, auto |
+| `knowz` | **Knowz** | Vaults via **CLI first** (`knowz` / `/knowz-cli`) then hosted MCP (`https://mcp.knowz.io/mcp`). Slim skills: ask, save, search, browse, amend, setup, status, flush, auto, cli |
 | `knowzcode` | **KnowzCode** | No `mcp.json`. Slim TDD / quality-gate skills, a Cursor rule, and Grok-host process relay to Codex or Claude Code. Knowz MCP is **optional** and **never blocks** |
 
 They complement each other. Each works alone. Install one or both — never as a single combined plugin.
 
-This repo is **not** the Claude / Codex marketplace. Team imports must use **this** GitHub repo (`knowz-io/cursor-knowz-plugin`), not `knowz-io/knowz-skills` (that package ships Claude monoliths, Agent Teams, and telemetry). KnowzCode here includes the Grok-host process relay ported from knowz-skills at SHA `35ff36297b6b98623efee48aa146c83cda58288a` — same contract, host-patched for Grok Bot / Cursor. Do not merge Knowz and KnowzCode.
+This repo is **not** the Claude / Codex marketplace. Grok Build, Grok Bot, and Cursor team imports must use **this** GitHub repo (`knowz-io/cursor-knowz-plugin`), not `knowz-io/knowz-skills` (that package ships Claude monoliths, Agent Teams, and telemetry). KnowzCode here includes the Grok-host process relay ported from knowz-skills at SHA `35ff36297b6b98623efee48aa146c83cda58288a` — same contract, host-patched for Grok. Do not merge Knowz and KnowzCode.
 
 ## Which plugin?
 
@@ -48,11 +75,12 @@ This repo is **not** the Claude / Codex marketplace. Team imports must use **thi
 **Knowz**
 
 ```text
-/knowz-setup          # map vaults once Authorize succeeds
+/knowz-setup          # map vaults once CLI or MCP is up
+/knowz-cli            # if `knowz` is on PATH
 /knowz-ask "…"        # vault Q&A
 /knowz-search "…"     # semantic search
 /knowz-save "…"       # capture a durable insight
-/knowz-status         # connection + vault health
+/knowz-status         # CLI / MCP + vault health
 ```
 
 Do **not** run `/knowz register` on an existing Knowz account — that creates a **new** account. Sign in during Authorize instead.
@@ -97,6 +125,8 @@ The repo root is a **marketplace index**, not a plugin. Each plugin lives under
 `plugins/` and carries its own manifests.
 
 ```text
+docs/grok-build.md                 # Grok Build install
+scripts/install-grok.sh            # one-shot Grok Build install
 .grok-plugin/marketplace.json      # index Grok reads
 .cursor-plugin/marketplace.json    # index Cursor reads
 plugins/knowz/                     # MCP + vault skills

@@ -5,7 +5,7 @@ description: "Research a codebase area before implementation. Use when the user 
 
 # /knowzcode:explore — Research before implementing
 
-Investigate a topic and stop with findings and recommendations. Knowz MCP is optional and never blocks exploration.
+Investigate a topic and stop with findings and recommendations. Knowz is optional and never blocks exploration. Prefer `knowz` CLI search/ask when on PATH, else MCP.
 
 ## Instructions
 
@@ -13,7 +13,7 @@ Investigate a topic and stop with findings and recommendations. Knowz MCP is opt
 2. Load context progressively. Start with that selected WorkGroup/capsule and goal-relevant spec headings/`VERIFY:` criteria. If neither exists, search the topic first; read only the relevant project, architecture, spec, or prior-WorkGroup sections needed to answer the recorded question.
 3. Search the codebase for relevant files and patterns using targeted reads.
 4. If the topic spans 2 or more independently useful subsystems, parallelize read-only explorers within the active runtime's capacity. Do not create overlapping scopes and do not implement code in this mode.
-5. If the local evidence leaves a named prior-decision or convention question **and** Knowz MCP is available, use a targeted `mcp__knowz__search_knowledge` or `mcp__knowz__ask_question` call. Do not issue a broad baseline vault query. If tools are missing, continue with local evidence only.
+5. If the local evidence leaves a named prior-decision or convention question **and** a Knowz backend is available, use targeted `knowz search` / `knowz ask` or MCP search/ask. Do not issue a broad baseline vault query. If both backends are missing, continue with local evidence only.
 6. Produce the **Exploration Deliverable** in chat. Write it to `knowzcode/explore/<topic-slug>/summary.md` only when writes are authorized and durable exploration output is requested or materially useful for recovery.
 7. Do not implement changes unless the user explicitly asks to move into `/knowzcode:work` or `/knowzcode:fix`.
 

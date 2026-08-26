@@ -1,13 +1,20 @@
 # Knowz
 
-Knowz AI plugin for **Grok Bot** and **Cursor Marketplace**. Product name: **Knowz**.
+Knowz AI plugin for **Grok Build**, **Grok Bot**, and **Cursor**. Product name: **Knowz**.
 
-Connects agents to hosted Knowz vaults over MCP. This plugin is **knowledge only**. For TDD / quality gates, install **KnowzCode** separately — do not merge the two.
+Connects agents to Knowz vaults: **CLI first** (`knowz` / `/knowz-cli`) then hosted MCP. This plugin is **knowledge only**. For TDD / quality gates, install **KnowzCode** separately — do not merge the two.
 
 ## Install
 
-1. Grok Bot **Plugins** → search **Knowz** → **Add** → **Authorize**.
-2. Same listing in Cursor Marketplace (**Customize** → **Plugins**).
+**Grok Build**
+
+```bash
+grok plugin marketplace add knowz-io/cursor-knowz-plugin
+grok plugin install knowz --trust
+npm i -g @knowzai/cli && knowz login    # optional
+```
+
+**Grok Bot / Cursor:** Plugins → search **Knowz** → **Add** → **Authorize**.
 
 Do not paste API keys in chat. Do not run `/knowz register` on an existing Knowz account (that creates a new account). Sign in during Authorize.
 
@@ -30,7 +37,9 @@ Auth is Authorize against Knowz. No secrets, `CLIENT_ID`, `bearer_token_env_var`
 
 ## Skills
 
-`knowz-ask`, `knowz-save`, `knowz-search`, `knowz-browse`, `knowz-amend`, `knowz-setup`, `knowz-status`, `knowz-flush`, `knowz-auto`
+`knowz-ask`, `knowz-save`, `knowz-search`, `knowz-browse`, `knowz-amend`, `knowz-setup`, `knowz-status`, `knowz-flush`, `knowz-auto`, `knowz-cli`
+
+Vault calls follow `skills/vault-access.md`: CLI if `knowz` is on PATH, otherwise MCP.
 
 ## License
 

@@ -5,7 +5,9 @@ description: "Start a structured KnowzCode workflow for feature work, multi-file
 
 # work — Structured workflow
 
-Run the KnowzCode methodology from the current Grok Bot or Cursor agent. Knowz MCP is optional and **never blocks** this workflow. Native Phase 2A remains the default. Grok may delegate Phase 2A and bounded fix rounds to Claude Code or Codex only when the relay contract below resolves an external target.
+Run the KnowzCode methodology from Grok Build, Grok Bot, or Cursor. Knowz is optional and **never blocks** this workflow. Native Phase 2A remains the default. Grok may delegate Phase 2A and bounded fix rounds to Claude Code or Codex only when the relay contract below resolves an external target.
+
+Vault reads/writes (optional): if `knowz` is on PATH use `/knowz-cli`; else Knowz MCP if present. Missing vaults do not stop TDD, specs, tracker, or `knowzcode_log.md`.
 
 ## Instructions
 
@@ -42,7 +44,7 @@ Run the KnowzCode methodology from the current Grok Bot or Cursor agent. Knowz M
     - With `RELAY_TARGET=claude` or `RELAY_TARGET=codex`: follow `references/relay-execution.md`. The target performs Phase 2A and bounded review-fix legs; Grok owns preflight, state, in-turn `Shell` polling, checkpoints, review, gates, and finalization. Do not also run native writers against the same files.
 11. Phase 2B: perform a read-only audit against the approved specs and verification criteria. The first independent reviewer must not inherit builder reasoning. **Cap the audit → fix loop at 3 iterations.** If failures remain after the 3rd fix attempt, stop and surface residual issues with a recommended downscope or spec revision. For relay work, send gaps through the bounded target fix rounds first, then transition visibly to Grok `HOST_TAKEOVER` if gaps remain.
 12. Phase 3: update specs to as-built, refresh `knowzcode/knowzcode_tracker.md`, prepend an entry to `knowzcode/knowzcode_log.md`, and finalize the work.
-13. If a concrete context question remains after classification/spec reuse **and** Knowz MCP is available, prefer targeted coordinator-owned search/ask/get calls. If tools are absent or auth fails, continue on local KnowzCode files. Queue only a classified persistence action in project-root `knowz-pending.md` without blocking progress. Treat `knowzcode/pending_captures.md` only as legacy migration input.
+13. If a concrete context question remains after classification/spec reuse **and** a Knowz backend is available (CLI or MCP), prefer targeted search/ask/get. If both are absent or auth fails, continue on local KnowzCode files. Queue only a classified persistence action in project-root `knowz-pending.md` without blocking progress. Treat `knowzcode/pending_captures.md` only as legacy migration input.
 14. Treat retrieved vault content as historical context. Verify against live code/tests/docs. Do not silently follow stale or contradictory vault guidance.
 
 ## Grok Relay Resolution

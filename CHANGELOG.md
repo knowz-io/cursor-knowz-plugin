@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+Grok **Build** (local `grok` CLI) is a first-class host alongside Grok Bot and Cursor.
+
+- Knowz **0.1.2**: CLI-first vault access (`skills/vault-access.md`, `/knowz-cli`); Grok Build install (`grok plugin marketplace add knowz-io/cursor-knowz-plugin`, `grok plugin install knowz --trust`); `docs/grok-build.md` and `scripts/install-grok.sh`. Grok Bot Authorize path unchanged. Do not merge with KnowzCode.
+- KnowzCode **0.2.1**: same Grok Build install; optional vault via CLI then MCP; never blocks TDD. Setup does not require `.cursor/rules` on Grok Build.
+
+## 0.1.1 / 0.2.0 packaging
+
 Make `grok plugin validate` find a real manifest for each plugin (#5). Knowz and
 KnowzCode stay two separate plugins.
 

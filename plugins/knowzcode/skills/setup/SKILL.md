@@ -1,11 +1,15 @@
 ---
 name: setup
-description: "Initialize KnowzCode in a repository for Grok Bot and Cursor: framework files, project personalization, and the Cursor rule. Knowz MCP is optional and never blocks setup."
+description: "Initialize KnowzCode in a repository for Grok Build, Grok Bot, and Cursor: framework files and project personalization. Knowz is optional and never blocks setup."
 ---
 
 # /knowzcode:setup — Initialize KnowzCode
 
-Initialize the KnowzCode framework in the current project. Grok Bot Plugins and Cursor Marketplace are the same catalog — do not treat this as Cursor-IDE-only.
+Initialize the KnowzCode framework in the current project.
+
+**Grok Build** (local `grok` CLI): skills come from this plugin after `grok plugin install knowzcode --trust`. Bootstrap framework files with `npx --yes knowzcode install --target "{absolute-repository-root}" --force` — do not require `.cursor/rules`. See `docs/grok-build.md` in the marketplace repo.
+
+Grok Bot Plugins and Cursor Marketplace share a catalog — do not treat this as Cursor-IDE-only.
 
 Knowz MCP is **optional**. Never block setup, personalization, or success reporting on missing Knowz tools.
 
@@ -25,5 +29,5 @@ Knowz MCP is **optional**. Never block setup, personalization, or success report
    - **Gate B (`knowzcode_architecture.md`):** Do not generate a diagram. The file ships with an empty Mermaid stub — leave it and tell the user "Architecture will be populated on first /knowzcode:work or when you ask for a sketch."
    - **Gate C (`user_preferences.md`):** Ask for (1) testing framework + coverage target, (2) code style / formatter, (3) top-3 quality priorities ranked, (4) non-negotiable project conventions (optional). Rewrite the file with real answers; strip the `*Examples:*` blocks from the filled copy; update `Last Updated` to the current ISO timestamp.
 6. Confirm `.cursor/rules/knowzcode.mdc` exists after install. This plugin also ships `rules/knowzcode.mdc` so Grok Bot and Cursor agents get the same methodology without a local copy.
-7. If the user also wants team memory, mention the **Knowz** plugin as a **separate** install (do not merge it into this workflow): Grok Bot Plugins or Cursor Marketplace → search **Knowz** → **Add** → **Authorize**. Do not run `/knowz register` on an existing account. Do not paste API keys.
+7. If the user also wants team memory, mention the **Knowz** plugin as a **separate** install (do not merge it into this workflow). Grok Build: `grok plugin install knowz --trust`. Grok Bot / Cursor: search **Knowz** → **Add** → **Authorize**. Do not run `/knowz register` on an existing account. Do not paste API keys in Grok Bot chat.
 8. End by suggesting `/knowzcode:work`, `/knowzcode:explore`, and `/knowzcode:fix`. Setup succeeds even when Knowz MCP is absent.

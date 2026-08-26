@@ -1,8 +1,8 @@
 {
   "name": "knowzcode",
   "displayName": "KnowzCode",
-  "version": "0.2.0",
-  "description": "Structured TDD with quality gates, local handoffs, and Grok-host process relay to Codex or Claude Code. Does not ship MCP — install Knowz separately if you want vaults. Knowz never blocks this workflow.",
+  "version": "0.2.1",
+  "description": "Structured TDD with quality gates, local handoffs, and Grok-host process relay to Codex or Claude Code. For Grok Build, Grok Bot, and Cursor. Does not ship MCP \u2014 install Knowz separately if you want vaults. Knowz never blocks this workflow.",
   "author": {
     "name": "Knowz AI",
     "email": "support@knowz.io"
@@ -19,7 +19,8 @@
     "quality-gates",
     "workflow",
     "relay",
-    "methodology"
+    "methodology",
+    "grok-build"
   ],
   "category": "developer-tools",
   "tags": [

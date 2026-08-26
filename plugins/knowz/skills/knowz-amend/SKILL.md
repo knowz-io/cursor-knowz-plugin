@@ -17,11 +17,13 @@ If the target item does not exist yet, use `/knowz-save` — amend cannot create
 
 ## Instructions
 
+Read [vault-access.md](../vault-access.md). Prefer `/knowz-cli` when `knowz` is on PATH.
+
 1. Read `knowz-vaults.md` from the project root if it exists.
 2. Parse the user's change from the request. Strip any `--id <knowledgeId>` flag and remember the value.
 3. **Resolve the target item:**
-   - If `--id` was provided → call `mcp__knowz__get_knowledge_item(id)` to confirm the item exists and fetch its title + vault for the confirmation step.
-   - If no `--id` → extract the subject of the change and call `mcp__knowz__search_knowledge` scoped to the vault routing rules in `knowz-vaults.md` with `limit: 5`.
+   - If `--id` was provided → `knowz knowledge get <id>` or `mcp__knowz__get_knowledge_item(id)` to confirm the item exists and fetch its title + vault for the confirmation step.
+   - If no `--id` → extract the subject of the change and search (`knowz search` or `mcp__knowz__search_knowledge`) scoped to the vault routing rules in `knowz-vaults.md` with `limit: 5`.
      - One clear match → use it.
      - Multiple plausible matches → present the top 3 with titles and snippets and ask the user which one.
      - Zero matches → report no matching item was found and suggest `/knowz-save` instead. Stop.
@@ -33,9 +35,7 @@ If the target item does not exist yet, use `/knowz-save` — amend cannot create
    ```
    Proceed only on explicit yes.
 5. Resolve one stable `Idempotency Key` from `amend`, the resolved target vault, `KnowledgeId`, normalized title, and a digest of the exact delta. It MUST NOT contain a timestamp, retry count, agent/session ID, or attempt number. Reuse it for every retry.
-6. **Call `mcp__knowz__amend_knowledge`** with:
-   - `id`: the resolved KnowledgeId
-   - the delta payload that expresses the user's change. Do NOT send the full prior content.
+6. **Amend** via `knowz knowledge amend <id> "<delta>"` or `mcp__knowz__amend_knowledge` with the resolved KnowledgeId. Do NOT send the full prior content.
 7. **If the server reports the target is missing** (deleted concurrently, bad id): do NOT silently fall through to create a new item. Report the missing-target conflict and offer `/knowz-save` as the next step.
 8. **If MCP write fails** (server unreachable, auth expired), read `knowz-pending.md` first and append a canonical block only when the same key/content is absent. The same key with different mutation content is a collision and MUST fail closed. Wrap the block in `---` delimiters — the flush parser splits on them.
 
@@ -56,7 +56,7 @@ If the target item does not exist yet, use `/knowz-save` — amend cannot create
    ---
    ```
 
-   Report: "Queued to knowz-pending.md — run /knowz-flush when MCP is available."
+   Report: "Queued to knowz-pending.md — run /knowz-flush when a backend is available."
 9. **Report success:**
    ```
    Knowledge amended!
@@ -65,4 +65,4 @@ If the target item does not exist yet, use `/knowz-save` — amend cannot create
      Change: {short summary of what was patched}
    ```
 
-If Knowz MCP tools are unavailable, report: "{brand} MCP not connected. In Grok Bot Plugins or Cursor Marketplace, search Knowz → Add → Authorize. Do not paste API keys in chat."
+If neither CLI nor MCP is available, follow [vault-access.md](../vault-access.md). Do not paste API keys in Grok Bot chat.

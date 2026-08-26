@@ -5,15 +5,25 @@ description: "Connect Knowz MCP and create vault routing files. Use after instal
 
 # /knowz-setup — Connect and map vaults
 
-Configure hosted Knowz MCP for Grok Bot and Cursor, then write project vault routing.
+Connect Knowz (CLI or hosted MCP), then write project vault routing.
 
-Grok Bot Plugins and Cursor Marketplace are the same catalog. Do not treat this as Cursor-IDE-only.
+Read [vault-access.md](../vault-access.md). Pick the host the user is on.
 
-## Primary install (do this first)
+If `knowz` is on PATH or Knowz MCP tools are already available, skip to **Create or refresh vault routing**.
 
-If Knowz tools such as `mcp__knowz__list_vaults` are already available, skip to **Create or refresh vault routing**.
+## Grok Build (local `grok` CLI)
 
-Otherwise tell the user to connect the plugin — do not paste API keys in chat, and do not treat a secret-request card as working Bearer auth on Grok Bot (those keys do not attach `Authorization: Bearer`).
+```bash
+grok plugin marketplace add knowz-io/cursor-knowz-plugin
+grok plugin install knowz --trust
+npm i -g @knowzai/cli && knowz login    # optional, preferred
+```
+
+`--trust` attaches `https://mcp.knowz.io/mcp`. Start a new Grok session. API keys belong in `grok mcp add --header`, never in the chat transcript.
+
+## Grok Bot / Cursor Marketplace
+
+Grok Bot Plugins and Cursor Marketplace are the same catalog.
 
 **Grok Bot**
 
@@ -43,7 +53,7 @@ Use `https://mcp.knowz.io/mcp` unless the project root has `enterprise.json` wit
 
 Generate `knowz-vaults.md` at the project root if it does not already exist. This file drives vault routing for `/knowz-search`, `/knowz-ask`, `/knowz-browse`, and `/knowz-save`.
 
-1. Call `mcp__knowz__list_vaults` to discover available vaults.
+1. List vaults: `knowz vault list --json` or `mcp__knowz__list_vaults`.
 2. For each vault, write a section:
    - **ID** — the vault id from the server
    - **Description** — what the vault stores
@@ -54,12 +64,12 @@ Generate `knowz-vaults.md` at the project root if it does not already exist. Thi
 4. Add a **Trust & Freshness** section: vault entries are point-in-time and may be stale — treat them as leads to verify against the live codebase, tests, and current docs.
 5. Do not invent fields; if information is missing, leave the section short.
 
-If `knowz-vaults.md` already exists, offer to refresh it: re-read `mcp__knowz__list_vaults`, append any new vaults, and flag vaults present in the file but absent from the server.
+If `knowz-vaults.md` already exists, offer to refresh it: re-list vaults, append any new ones, and flag vaults present in the file but absent from the server.
 
 ## Verify
 
-1. `mcp__knowz__list_vaults` returns at least one vault id.
-2. `mcp__knowz__search_knowledge` against the default vault returns a result (or an empty-but-successful response).
+1. Vault list returns at least one id (CLI or MCP).
+2. A search against the default vault succeeds (or empty-but-successful).
 3. Confirm the resolved brand from `enterprise.json#/brand` (default `Knowz`).
 
-Report the brand, vault count, and that Authorize — not an API key in chat — is how this plugin authenticates.
+Report the brand, vault count, and which backend is active (CLI vs MCP). On Grok Bot, Authorize — not an API key in chat — is the auth path.
