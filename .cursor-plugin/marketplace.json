@@ -20,7 +20,7 @@
       "homepage": "https://knowz.io",
       "repository": "https://github.com/knowz-io/cursor-knowz-plugin",
       "license": "MIT",
-      "logo": "assets/logo.svg",
+      "logo": "assets/logo.png",
       "category": "productivity",
       "keywords": [
         "knowz",
@@ -47,7 +47,7 @@
       "homepage": "https://knowz.io",
       "repository": "https://github.com/knowz-io/cursor-knowz-plugin",
       "license": "MIT",
-      "logo": "assets/logo.svg",
+      "logo": "assets/logo.png",
       "category": "developer-tools",
       "keywords": [
         "knowzcode",
