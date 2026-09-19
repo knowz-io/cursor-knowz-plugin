@@ -10,7 +10,7 @@
   "homepage": "https://knowz.io",
   "repository": "https://github.com/knowz-io/cursor-knowz-plugin",
   "license": "MIT",
-  "logo": "assets/logo.svg",
+  "logo": "assets/logo.png",
   "keywords": [
     "knowzcode",
     "knowz-ai",
@@ -28,5 +28,7 @@
     "tdd",
     "quality-gates",
     "relay"
-  ]
+  ],
+  "skills": "./skills/",
+  "rules": "./rules/"
 }

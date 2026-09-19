@@ -2,6 +2,8 @@
 
 Listed as **Knowz AI**. Two separately installable plugins — do not merge them.
 
+> **Cursor official marketplace (2026-09-19):** public pages for [`knowz`](https://cursor.com/marketplace/knowz) and [`knowzcode`](https://cursor.com/marketplace/knowzcode) still soft-404 pending Cursor review. Packaging checklist + draft status nudge: [docs/cursor-marketplace.md](./docs/cursor-marketplace.md). Team / git install below works today.
+
 **Grok Build** is the local `grok` coding agent. **Grok Bot** is the hosted chat product. Same plugins, different install:
 
 | Host | How to install |

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Cursor Marketplace packaging polish (no version bump)
+
+- Add PNG logos (`assets/logo.png`, `assets/icon.png`) for marketplace cards; keep SVG
+- Point marketplace + plugin manifests at `assets/logo.png`
+- Declare explicit `skills` / `rules` paths in plugin manifests (Adspirer-style)
+- Add `docs/cursor-marketplace.md` reviewer checklist + live status notes
+
+## 0.1.2 / 0.2.1
+
 Grok **Build** (local `grok` CLI) is a first-class host alongside Grok Bot and Cursor.
 
 - Knowz **0.1.2**: CLI-first vault access (`skills/vault-access.md`, `/knowz-cli`); Grok Build install (`grok plugin marketplace add knowz-io/cursor-knowz-plugin`, `grok plugin install knowz-io/cursor-knowz-plugin#plugins/knowz --trust`); MCP OAuth via `/mcps` then `i` (doctor `OAuth authorization required` until then); `docs/grok-build.md` and `scripts/install-grok.sh` (`--cli`, `--replace-collisions`, GitHub fallback). Grok Bot Authorize path unchanged. Do not merge with KnowzCode. Do not add `knowz-io/knowz-skills` as a Grok marketplace.
